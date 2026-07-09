@@ -1,0 +1,81 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import SectionIntro from "@/components/SectionIntro.astro";
+import { portfolioImages, clientLogos } from "@/data/assets";
+import { organizationSchema, breadcrumbSchema } from "@/data/schema";
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Portfolio", url: "/portfolio/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Security Portfolio Ontario | Accure Security Event Coverage"
+  description="View Accure Security portfolio images from group, team, venue, crowd, and event security coverage across Ontario."
+  canonical="/portfolio/"
+  image="/images/portfolio/night-event-team.jpg"
+  schema={schema}
+>
+  <section class="section-shell pt-36 pb-20 md:pt-44">
+    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Portfolio</span>
+        <h1 class="headline mt-7 text-[clamp(4rem,11vw,10rem)]" data-motion-text="words">
+          Field coverage shown through teams, venues, and crowd environments.
+        </h1>
+      </div>
+      <p class="copy" data-reveal="fade-up">
+        This gallery uses group and operational event images instead of solo portraits. The focus is visible readiness, crowd environments, and professional team presence.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-shell pb-24 md:pb-32">
+    <div class="grid gap-5 md:grid-cols-2" data-reveal-group>
+      {portfolioImages.map((image, index) => (
+        <figure class:list={["bezel", index === 0 && "md:col-span-2"]} data-reveal-item data-image-reveal>
+          <div class="bezel-core">
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              class:list={[
+                "w-full object-cover",
+                index === 0 ? "aspect-[16/8]" : "aspect-[4/3]",
+              ]}
+            />
+            <figcaption class="p-6">
+              <h2 class="font-display text-4xl font-bold leading-none">{image.title}</h2>
+            </figcaption>
+          </div>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="dark-panel py-24 text-[#fffdf8] md:py-32">
+    <div class="section-shell">
+      <SectionIntro
+        eyebrow="Client and venue experience"
+        title="A proof strip built for trust without overclaiming."
+        text="The site uses available client logos as visual proof and keeps specific performance claims limited to what the provided materials support."
+        inverted
+      />
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+        {clientLogos.slice(0, 12).map((logo) => (
+          <div class="grid h-28 place-items-center rounded-[1.4rem] border border-white/10 bg-white p-5" data-reveal-item>
+            <img src={logo.src} alt={`${logo.name} logo`} loading="lazy" decoding="async" class="max-h-16 max-w-[10rem] object-contain" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <QuoteBand />
+</BaseLayout>

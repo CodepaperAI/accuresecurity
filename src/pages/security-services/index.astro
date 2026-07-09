@@ -1,0 +1,68 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/Button.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import { physicalServices, serviceUrl } from "@/data/services";
+import { organizationSchema, breadcrumbSchema } from "@/data/schema";
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Security Services", url: "/security-services/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Security Guard Services Ontario | Accure Security"
+  description="Physical security services in Ontario including commercial security, residential concierge, event security, fire watch, healthcare security, mobile patrol, and construction site protection."
+  canonical="/security-services/"
+  image="/images/services/commercial-industrial-security.jpg"
+  schema={schema}
+>
+  <section class="section-shell pt-36 pb-20 md:pt-44">
+    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Physical security services</span>
+        <h1 class="headline mt-7 text-[clamp(4rem,11vw,10rem)]" data-motion-text="words">
+          Licensed guards for Ontario properties, events, and worksites.
+        </h1>
+      </div>
+      <div data-reveal="fade-up">
+        <p class="copy">
+          Accure provides on-site guard coverage, concierge security, mobile patrol, fire watch, event security, healthcare security, and construction site protection. Each plan is shaped around access points, operating hours, risk level, and reporting needs.
+        </p>
+        <div class="mt-8">
+          <Button href="/contact/" label="Request guard coverage" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell pb-24 md:pb-32">
+    <div class="grid gap-5 lg:grid-cols-12" data-reveal-group>
+      {physicalServices.map((service, index) => (
+        <a
+          href={serviceUrl(service)}
+          class:list={[
+            "bezel group block",
+            index === 0 || index === 1 ? "lg:col-span-6" : "lg:col-span-4",
+          ]}
+          data-reveal-item
+        >
+          <article class="bezel-core h-full">
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" class="h-72 w-full object-cover transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.035]" />
+            <div class="p-6">
+              <p class="font-utility text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accure-red-dark)]">{service.eyebrow}</p>
+              <h2 class="mt-3 font-display text-4xl font-bold leading-none">{service.title}</h2>
+              <p class="copy mt-4">{service.summary}</p>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <QuoteBand />
+</BaseLayout>

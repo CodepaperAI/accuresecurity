@@ -1,0 +1,26 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/Button.astro";
+---
+
+<BaseLayout
+  title="Page Not Found | Accure Security"
+  description="The requested Accure Security page could not be found."
+  canonical="/404/"
+>
+  <section class="section-shell grid min-h-[80dvh] place-items-center pt-32 pb-20 text-center">
+    <div class="max-w-3xl">
+      <span class="eyebrow mx-auto" data-reveal="fade-up">404</span>
+      <h1 class="headline mt-7 text-[clamp(4rem,12vw,10rem)]" data-motion-text="words">
+        This page is off patrol.
+      </h1>
+      <p class="copy mx-auto mt-7" data-reveal="fade-up">
+        The page you requested does not exist or has moved. Start from the service directory or request coverage directly.
+      </p>
+      <div class="mt-9 flex justify-center gap-3" data-reveal="fade-up">
+        <Button href="/security-services/" label="View services" />
+        <Button href="/contact/" label="Request a quote" variant="secondary" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

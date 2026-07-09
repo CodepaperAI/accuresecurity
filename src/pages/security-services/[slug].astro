@@ -1,0 +1,169 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BezelImage from "@/components/BezelImage.astro";
+import Button from "@/components/Button.astro";
+import FAQ from "@/components/FAQ.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import { physicalServices, getService, serviceUrl } from "@/data/services";
+import { locations } from "@/data/locations";
+import { organizationSchema, serviceSchema, faqSchema, breadcrumbSchema } from "@/data/schema";
+
+export function getStaticPaths() {
+  return physicalServices.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const related = service.related?.map((slug: string) => getService(slug)).filter(Boolean) ?? [];
+const schema = [
+  organizationSchema(),
+  serviceSchema(service),
+  faqSchema(service.faqs),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Security Services", url: "/security-services/" },
+    { name: service.title, url: serviceUrl(service) },
+  ]),
+];
+---
+
+<BaseLayout
+  title={service.metaTitle}
+  description={service.metaDescription}
+  canonical={serviceUrl(service)}
+  image={service.image}
+  schema={schema}
+>
+  <section class="section-shell pt-36 pb-20 md:pt-44">
+    <div class="grid gap-12 lg:grid-cols-[1fr_0.78fr] lg:items-center">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">{service.eyebrow}</span>
+        <h1 class="headline mt-7 text-[clamp(4rem,10vw,9.2rem)]" data-motion-text="words">{service.title}</h1>
+        <p class="copy mt-7 max-w-2xl" data-reveal="fade-up">{service.summary}</p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row" data-reveal="fade-up">
+          <Button href="/contact/" label="Request this coverage" />
+          <Button href="/locations/" label="View locations" variant="secondary" />
+        </div>
+      </div>
+      <BezelImage src={service.image} alt={service.imageAlt} priority imageClass="aspect-[4/5] min-h-[520px]" />
+    </div>
+  </section>
+
+  <section class="section-shell py-20 md:py-28">
+    <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Outcomes</span>
+        <h2 class="headline mt-6 text-[clamp(3rem,7vw,6.2rem)]" data-motion-text="words">
+          What this service is designed to prevent.
+        </h2>
+      </div>
+      <div class="grid gap-4" data-reveal-group>
+        {service.outcomes.map((outcome: string, index: number) => (
+          <article class="grid gap-4 border-t border-black/12 py-5 sm:grid-cols-[4rem_1fr]" data-reveal-item>
+            <span class="font-utility text-sm font-semibold text-[var(--accure-red)]">0{index + 1}</span>
+            <p class="text-xl font-semibold tracking-tight">{outcome}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-panel py-24 text-[#fffdf8] md:py-32">
+    <div class="section-shell grid gap-12 lg:grid-cols-[1fr_1fr]">
+      <div>
+        <span class="eyebrow border-white/20 bg-white/12 text-[#fffdf8]" data-reveal="fade-up">Included coverage</span>
+        <h2 class="headline mt-6 text-[clamp(3rem,7vw,6.2rem)] text-[#fffdf8]" data-motion-text="words">
+          Site duties that make protection visible.
+        </h2>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2" data-reveal-group>
+        {service.included.map((item: string) => (
+          <div class="rounded-[1.1rem] border border-white/12 bg-white/10 p-5 font-semibold text-[#fffdf8]" data-reveal-item>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell py-24 md:py-32">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Best fit</span>
+        <h2 class="headline mt-6 text-[clamp(3rem,7vw,6.2rem)]" data-motion-text="words">
+          Common sites that request {service.shortTitle.toLowerCase()}.
+        </h2>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2" data-reveal-group>
+        {service.useCases.map((item: string) => (
+          <div class="bezel" data-reveal-item>
+            <div class="bezel-core p-6">
+              <p class="font-semibold text-lg">{item}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell py-24 md:py-32">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Ontario branches</span>
+        <h2 class="headline mt-6 text-[clamp(3rem,7vw,6.2rem)]" data-motion-text="words">
+          Service pages link into local coverage.
+        </h2>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2" data-reveal-group>
+        {locations.map((location) => (
+          <a href={`/locations/${location.slug}/`} class="bezel" data-reveal-item>
+            <div class="bezel-core p-6">
+              <p class="font-display text-3xl font-bold">{location.city}</p>
+              <p class="mt-3 text-sm font-semibold text-[var(--ink)]">{location.address}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell py-24 md:py-32">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">FAQ</span>
+        <h2 class="headline mt-6 text-[clamp(3rem,7vw,6.2rem)]" data-motion-text="words">
+          Before you request this service.
+        </h2>
+      </div>
+      <FAQ items={service.faqs} />
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section-shell py-24 md:py-32">
+      <div class="mb-10">
+        <span class="eyebrow" data-reveal="fade-up">Related services</span>
+        <h2 class="headline mt-6 text-[clamp(3rem,7vw,6.2rem)]" data-motion-text="words">Layer this coverage with adjacent protection.</h2>
+      </div>
+      <div class="grid gap-5 lg:grid-cols-3" data-reveal-group>
+        {related.map((item) => (
+          item && (
+            <a href={serviceUrl(item)} class="bezel group" data-reveal-item>
+              <article class="bezel-core h-full">
+                <img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" class="h-60 w-full object-cover transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.035]" />
+                <div class="p-6">
+                  <p class="font-utility text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accure-red-dark)]">{item.category}</p>
+                  <h3 class="mt-3 font-display text-4xl font-bold leading-none">{item.shortTitle}</h3>
+                </div>
+              </article>
+            </a>
+          )
+        ))}
+      </div>
+    </section>
+  )}
+
+  <QuoteBand />
+</BaseLayout>

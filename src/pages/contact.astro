@@ -1,0 +1,130 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FAQ from "@/components/FAQ.astro";
+import { locations } from "@/data/locations";
+import { organizationSchema, breadcrumbSchema } from "@/data/schema";
+
+const contactFaqs = [
+  {
+    question: "What should I include in the quote request?",
+    answer:
+      "Include the property address, service type, required dates and hours, approximate site size, number of posts or patrols, known risks, and whether you need reporting, CCTV, monitoring, or access control.",
+  },
+  {
+    question: "Can I request both guards and security systems?",
+    answer:
+      "Yes. The quote request can include physical security, digital systems, or both.",
+  },
+  {
+    question: "Is this form connected to a backend?",
+    answer:
+      "The form is prepared for static hosting form capture. If your hosting provider has a preferred form endpoint, it can be connected quickly.",
+  },
+];
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Contact", url: "/contact/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Request a Security Quote | Accure Security"
+  description="Request a security quote from Accure Security for guards, patrol, event security, construction security, healthcare security, remote monitoring, CCTV, or access control in Ontario."
+  canonical="/contact/"
+  image="/images/services/commercial-industrial-security.jpg"
+  schema={schema}
+>
+  <section class="section-shell pt-36 pb-24 md:pt-44 md:pb-32">
+    <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Request coverage</span>
+        <h1 class="headline mt-7 text-[clamp(4rem,10vw,9.2rem)]" data-motion-text="words">
+          Send the site details. Accure will shape the coverage.
+        </h1>
+        <p class="copy mt-7" data-reveal="fade-up">
+          Use this form for security guards, event security, mobile patrol, construction site protection, fire watch, healthcare watch, remote monitoring, CCTV, or access control.
+        </p>
+        <div class="mt-10 grid gap-4" data-reveal-group>
+          {locations.slice(0, 3).map((location) => (
+            <a href={`/locations/${location.slug}/`} class="bezel" data-reveal-item>
+              <div class="bezel-core p-5">
+                <p class="font-display text-3xl font-bold">{location.city}</p>
+                <p class="mt-2 text-sm font-semibold text-[var(--ink)]">{location.address}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="bezel">
+        <form class="bezel-core p-6 md:p-8" name="security-quote" method="post" data-netlify="true" data-reveal="fade-up">
+          <input type="hidden" name="form-name" value="security-quote" />
+          <div class="grid gap-5">
+            <label class="grid gap-2">
+              <span class="text-sm font-bold">Name</span>
+              <input class="rounded-[1rem] border border-black/15 bg-[#fffdf8] px-4 py-3 text-[var(--ink)] outline-none transition focus:border-[var(--accure-red)]" name="name" autocomplete="name" required />
+            </label>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <label class="grid gap-2">
+                <span class="text-sm font-bold">Email</span>
+                <input class="rounded-[1rem] border border-black/15 bg-[#fffdf8] px-4 py-3 text-[var(--ink)] outline-none transition focus:border-[var(--accure-red)]" type="email" name="email" autocomplete="email" required />
+              </label>
+              <label class="grid gap-2">
+                <span class="text-sm font-bold">Phone</span>
+                <input class="rounded-[1rem] border border-black/15 bg-[#fffdf8] px-4 py-3 text-[var(--ink)] outline-none transition focus:border-[var(--accure-red)]" name="phone" autocomplete="tel" />
+              </label>
+            </div>
+            <label class="grid gap-2">
+              <span class="text-sm font-bold">Service needed</span>
+              <select class="rounded-[1rem] border border-black/15 bg-[#fffdf8] px-4 py-3 text-[var(--ink)] outline-none transition focus:border-[var(--accure-red)]" name="service" required>
+                <option value="">Select a service</option>
+                <option>Commercial or industrial security</option>
+                <option>Residential or concierge security</option>
+                <option>Event security</option>
+                <option>Fire watch or contractor watch</option>
+                <option>Healthcare security</option>
+                <option>Mobile patrol or alarm response</option>
+                <option>Construction site security</option>
+                <option>Live remote monitoring</option>
+                <option>CCTV or camera installation</option>
+                <option>Access control</option>
+              </select>
+            </label>
+            <label class="grid gap-2">
+              <span class="text-sm font-bold">Site address or city</span>
+              <input class="rounded-[1rem] border border-black/15 bg-[#fffdf8] px-4 py-3 text-[var(--ink)] outline-none transition focus:border-[var(--accure-red)]" name="site" required />
+            </label>
+            <label class="grid gap-2">
+              <span class="text-sm font-bold">Coverage details</span>
+              <textarea class="min-h-40 rounded-[1rem] border border-black/15 bg-[#fffdf8] px-4 py-3 text-[var(--ink)] outline-none transition placeholder:text-[rgba(21,21,21,0.72)] focus:border-[var(--accure-red)]" name="message" required placeholder="Dates, hours, property type, risk concerns, reporting needs"></textarea>
+            </label>
+            <button class="button button-primary w-fit" type="submit">
+              <span>Send quote request</span>
+              <span class="button-icon">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                  <path d="M5 13L13 5M13 5H6.5M13 5V11.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell pb-24 md:pb-32">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Contact FAQ</span>
+        <h2 class="headline mt-6 text-[clamp(3rem,7vw,6.2rem)]" data-motion-text="words">
+          Details that help a security quote move faster.
+        </h2>
+      </div>
+      <FAQ items={contactFaqs} />
+    </div>
+  </section>
+</BaseLayout>

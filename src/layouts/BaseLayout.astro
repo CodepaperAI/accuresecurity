@@ -1,0 +1,59 @@
+---
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Motion from "@/components/Motion.astro";
+import "@/styles/global.css";
+import { site } from "@/data/site";
+
+type Props = {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+};
+
+const {
+  title = "Accure Security | Ontario Security Guard Services",
+  description = site.description,
+  canonical = Astro.url.pathname,
+  image = "/images/services/event-security.jpg",
+  schema = [],
+} = Astro.props as Props;
+
+const canonicalUrl = new URL(canonical, site.url).toString();
+const ogImage = new URL(image, site.url).toString();
+const schemaItems = Array.isArray(schema) ? schema : [schema];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#bd1f25" />
+    <link rel="icon" href="/images/brand/accure-logo.png" />
+    {schemaItems.map((item) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <Motion />
+  </body>
+</html>

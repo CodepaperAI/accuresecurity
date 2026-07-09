@@ -1,0 +1,142 @@
+---
+import { physicalServices, serviceUrl } from "@/data/services";
+import { locations } from "@/data/locations";
+import { site } from "@/data/site";
+import Button from "./Button.astro";
+
+const navLinks = [
+  { href: "/security-services/", label: "Services" },
+  { href: "/security-systems/", label: "Systems" },
+  { href: "/locations/", label: "Locations" },
+  { href: "/portfolio/", label: "Portfolio" },
+  { href: "/about/", label: "About" },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => currentPath === href || (href !== "/" && currentPath.startsWith(href));
+---
+
+<header class="fixed inset-x-0 top-0 z-40 pointer-events-none px-3 py-4 sm:px-6">
+  <nav class="mx-auto flex max-w-[1180px] items-center justify-between gap-3 rounded-full border border-black/15 bg-[#fffaf1]/92 p-2 shadow-[var(--shadow-md)] backdrop-blur-2xl pointer-events-auto">
+    <a href="/" class="flex items-center gap-3 rounded-full pl-2 pr-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accure-red)]">
+      <img src={site.logo} alt="Accure Security logo" class="h-11 w-11 rounded-full object-contain" />
+      <span class="hidden leading-none sm:block">
+        <span class="block font-display text-2xl font-bold text-[var(--ink)]">Accure</span>
+        <span class="font-utility block text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-[var(--accure-red)]">Security</span>
+      </span>
+    </a>
+
+    <div class="hidden items-center gap-1 lg:flex">
+      {navLinks.map((link) => (
+        <a
+          class:list={[
+            "rounded-full px-4 py-2 text-sm font-bold transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-black/5 hover:text-[var(--ink)]",
+            isActive(link.href) ? "bg-[rgba(179,31,37,0.1)] text-[var(--accure-red-dark)]" : "text-[var(--ink)]",
+          ]}
+          href={link.href}
+          aria-current={isActive(link.href) ? "page" : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="hidden items-center gap-2 lg:flex">
+      <a href="/contact/" class="rounded-full px-4 py-2 text-sm font-extrabold text-[var(--accure-red-dark)] transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[rgba(189,31,37,0.08)]">
+        24/7 request
+      </a>
+      <Button href={site.primaryCta.href} label="Quote" class="!py-1 !pl-4" />
+    </div>
+
+    <button
+      class="menu-toggle relative grid h-12 w-12 place-items-center rounded-full bg-[var(--ink)] text-white lg:hidden"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open navigation"
+    >
+      <span class="hamburger-line absolute h-px w-5 -translate-y-1.5 bg-current transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"></span>
+      <span class="hamburger-line absolute h-px w-5 translate-y-1.5 bg-current transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"></span>
+    </button>
+  </nav>
+</header>
+
+<div
+  id="mobile-menu"
+  class="mobile-menu fixed inset-0 z-50 hidden bg-[var(--charcoal)]/96 px-4 py-5 text-[#fffdf8] backdrop-blur-2xl lg:hidden"
+>
+  <div class="mx-auto flex max-w-xl flex-col gap-8">
+    <div class="flex items-center justify-between rounded-full border border-white/10 bg-white/8 p-2">
+      <a href="/" class="flex items-center gap-3">
+        <img src={site.logo} alt="Accure Security logo" class="h-11 w-11 rounded-full object-contain" />
+        <span class="font-display text-2xl font-bold">Accure Security</span>
+      </a>
+      <button class="menu-close grid h-12 w-12 place-items-center rounded-full bg-white text-[var(--ink)]" type="button" aria-label="Close navigation">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="grid gap-3">
+      {navLinks.map((link, index) => (
+        <a style={`--i:${index}`} class="mobile-menu-link translate-y-8 rounded-[1.4rem] border border-white/10 bg-white/8 px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href={link.href}>
+          {link.label}
+        </a>
+      ))}
+      <a style="--i:5" class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
+        Request a quote
+      </a>
+    </div>
+
+    <div class="grid gap-8 border-t border-white/10 pt-8">
+      <div>
+        <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Physical security</p>
+        <div class="mt-4 grid gap-2">
+          {physicalServices.slice(0, 5).map((service) => (
+            <a class="font-semibold text-[#fffdf8]" href={serviceUrl(service)}>{service.shortTitle}</a>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Locations</p>
+        <div class="mt-4 grid gap-2">
+          {locations.slice(0, 5).map((location) => (
+            <a class="font-semibold text-[#fffdf8]" href={`/locations/${location.slug}/`}>{location.city}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // @ts-nocheck
+  const toggle = document.querySelector(".menu-toggle");
+  const close = document.querySelector(".menu-close");
+  const menu = document.querySelector(".mobile-menu");
+  const links = document.querySelectorAll(".mobile-menu-link");
+  const lines = document.querySelectorAll(".hamburger-line");
+
+  function setMenu(open) {
+    if (!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", String(open));
+    menu.classList.toggle("hidden", !open);
+    document.documentElement.classList.toggle("overflow-hidden", open);
+    lines[0]?.classList.toggle("rotate-45", open);
+    lines[0]?.classList.toggle("translate-y-0", open);
+    lines[1]?.classList.toggle("-rotate-45", open);
+    lines[1]?.classList.toggle("translate-y-0", open);
+    requestAnimationFrame(() => {
+      links.forEach((link) => {
+        link.classList.toggle("opacity-100", open);
+        link.classList.toggle("translate-y-0", open);
+        link.style.transitionDelay = open ? `calc(var(--i) * 70ms + 90ms)` : "0ms";
+      });
+    });
+  }
+
+  toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
+  close?.addEventListener("click", () => setMenu(false));
+  links.forEach((link) => link.addEventListener("click", () => setMenu(false)));
+</script>

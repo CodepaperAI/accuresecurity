@@ -1,0 +1,31 @@
+---
+import { clientLogos } from "@/data/assets";
+
+const doubled = [...clientLogos, ...clientLogos];
+---
+
+<section class="relative border-y border-[rgba(21,21,21,0.14)] bg-[#fffaf1]/92 py-8" aria-label="Client logos">
+  <div class="section-shell">
+    <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <p class="font-utility text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accure-red-dark)]">
+        Trusted across events, venues, municipalities, and businesses
+      </p>
+      <p class="text-sm font-bold text-[var(--ink)]">Client and venue experience</p>
+    </div>
+  </div>
+  <div class="overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
+    <div class="logo-marquee flex w-max items-center gap-5 pr-5 hover:[animation-play-state:paused]">
+      {doubled.map((logo) => (
+        <div class="grid h-24 w-48 place-items-center rounded-[1rem] border border-black/12 bg-[#fffdf8] px-6 shadow-[var(--shadow-md)]">
+          <img
+            src={logo.src}
+            alt={`${logo.name} logo`}
+            loading="lazy"
+            decoding="async"
+            class="max-h-14 w-auto max-w-[9.5rem] object-contain grayscale transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:grayscale-0"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+type FAQItem = {
+  question: string;
+  answer: string;
+};
+
+type Props = {
+  items: FAQItem[];
+};
+
+const { items } = Astro.props as Props;
+---
+
+<div class="grid gap-4" data-reveal-group>
+  {items.map((item) => (
+    <details class="group rounded-[1.15rem] border border-black/12 bg-[#fffaf1] p-6 shadow-[var(--shadow-md)]" data-reveal-item>
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-semibold text-[var(--ink)]">
+        <span>{item.question}</span>
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[rgba(179,31,37,0.1)] text-[var(--accure-red-dark)] transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 1.5V12.5M1.5 7H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </span>
+      </summary>
+      <p class="copy mt-4">{item.answer}</p>
+    </details>
+  ))}
+</div>

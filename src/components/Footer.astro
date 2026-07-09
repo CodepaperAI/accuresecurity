@@ -1,0 +1,62 @@
+---
+import { site } from "@/data/site";
+import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
+import { locations } from "@/data/locations";
+---
+
+<footer class="dark-panel border-t border-black/10 text-[#fffdf8]">
+  <div class="section-shell py-16">
+    <div class="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
+      <div>
+        <a href="/" class="flex items-center gap-4">
+          <img src={site.logo} alt="Accure Security logo" class="h-16 w-16 rounded-full bg-white object-contain" />
+          <span>
+            <span class="block font-display text-4xl font-bold">Accure</span>
+            <span class="font-utility block text-xs font-semibold uppercase tracking-[0.32em] text-[var(--accure-red)]">Security</span>
+          </span>
+        </a>
+        <p class="mt-6 max-w-md font-medium text-[#fffdf8]">
+          Licensed security guard services, mobile patrol, event security, construction site protection, remote monitoring, CCTV, and access control across Ontario.
+        </p>
+        <a href="/contact/" class="mt-8 inline-flex rounded-full bg-white px-5 py-3 font-extrabold text-[var(--ink)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf1]">
+          Request a security quote
+        </a>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-3">
+        <div>
+          <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Physical</h2>
+          <div class="mt-4 grid gap-3">
+            {physicalServices.map((service) => (
+              <a href={serviceUrl(service)} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{service.shortTitle}</a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Digital</h2>
+          <div class="mt-4 grid gap-3">
+            {digitalServices.map((service) => (
+              <a href={serviceUrl(service)} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{service.shortTitle}</a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Locations</h2>
+          <div class="mt-4 grid gap-3">
+            {locations.map((location) => (
+              <a href={`/locations/${location.slug}/`} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{location.city}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm font-semibold text-[#f1e8db] sm:flex-row sm:items-center sm:justify-between">
+      <p>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
+      <div class="flex gap-5">
+        <a href="/privacy/" class="hover:text-white">Privacy</a>
+        <a href="/contact/" class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>

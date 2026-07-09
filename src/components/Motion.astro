@@ -1,0 +1,308 @@
+<script>
+  // @ts-nocheck
+  import Lenis from "lenis";
+  import "lenis/dist/lenis.css";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({ ease: "power3.out", duration: 0.55 });
+
+  if (!reduceMotion) {
+    document.documentElement.classList.add("has-motion");
+  }
+
+  let lenis;
+  if (!reduceMotion) {
+    lenis = new Lenis({
+      lerp: 0.08,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      anchors: true,
+    });
+
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  function splitWords(element) {
+    if (element.dataset.motionSplit === "true") return;
+    const text = element.textContent || "";
+    const parts = text.split(/(\s+)/);
+    element.textContent = "";
+    element.setAttribute("aria-label", text.trim());
+    parts.forEach((part) => {
+      if (!part.trim()) {
+        element.appendChild(document.createTextNode(part));
+        return;
+      }
+      const mask = document.createElement("span");
+      const word = document.createElement("span");
+      mask.className = "motion-word-mask";
+      mask.setAttribute("aria-hidden", "true");
+      word.className = "motion-word";
+      word.textContent = part;
+      mask.appendChild(word);
+      element.appendChild(mask);
+    });
+    element.dataset.motionSplit = "true";
+  }
+
+  function initTextReveals() {
+    if (reduceMotion) {
+      gsap.set("[data-motion-text]", { autoAlpha: 1, clearProps: "all" });
+      return;
+    }
+    gsap.utils.toArray("[data-motion-text='words']").forEach((element) => {
+      splitWords(element);
+      const words = element.querySelectorAll(".motion-word");
+      gsap.set(element, { autoAlpha: 1 });
+      gsap.fromTo(
+        words,
+        { yPercent: 24, autoAlpha: 0.35 },
+        {
+          yPercent: 0,
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "power4.out",
+          stagger: 0.03,
+          scrollTrigger: {
+            trigger: element,
+            start: "top 92%",
+            once: true,
+          },
+        },
+      );
+    });
+  }
+
+  const revealPresets = {
+    "fade-up": { from: { y: 16, autoAlpha: 0.35 }, to: { y: 0, autoAlpha: 1 } },
+    "slide-left": { from: { x: 24, autoAlpha: 0.35 }, to: { x: 0, autoAlpha: 1 } },
+    "slide-right": { from: { x: -24, autoAlpha: 0.35 }, to: { x: 0, autoAlpha: 1 } },
+    scale: { from: { scale: 0.98, autoAlpha: 0.35 }, to: { scale: 1, autoAlpha: 1 } },
+  };
+
+  function initScrollReveals() {
+    if (reduceMotion) {
+      gsap.set("[data-reveal], [data-reveal-item]", { autoAlpha: 1, clearProps: "all" });
+      return;
+    }
+
+    gsap.utils.toArray("[data-reveal-group]").forEach((group) => {
+      const items = group.querySelectorAll("[data-reveal-item]");
+      gsap.set(group, { autoAlpha: 1 });
+      gsap.fromTo(
+        items,
+        { y: 12, autoAlpha: 0.35 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "power4.out",
+          stagger: 0.03,
+          scrollTrigger: {
+            trigger: group,
+            start: "top 92%",
+            once: true,
+          },
+        },
+      );
+    });
+
+    gsap.utils.toArray("[data-reveal]:not([data-reveal-item])").forEach((element) => {
+      const preset = revealPresets[element.dataset.reveal] || revealPresets["fade-up"];
+      gsap.set(element, { autoAlpha: 1 });
+      gsap.fromTo(element, preset.from, {
+        ...preset.to,
+        duration: 0.55,
+        ease: "power4.out",
+        delay: Number(element.dataset.revealDelay || 0),
+        scrollTrigger: {
+          trigger: element,
+          start: "top 92%",
+          once: true,
+        },
+      });
+    });
+  }
+
+  function initImageReveals() {
+    if (reduceMotion) {
+      gsap.set("[data-image-reveal]", { autoAlpha: 1, clipPath: "none" });
+      return;
+    }
+
+    gsap.utils.toArray("[data-image-reveal]").forEach((figure) => {
+      const image = figure.querySelector("img");
+      gsap.set(figure, { autoAlpha: 1 });
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: figure,
+          start: "top 92%",
+          once: true,
+        },
+      })
+        .fromTo(
+          figure,
+          { clipPath: "inset(0 0 100% 0)" },
+          { clipPath: "inset(0 0 0% 0)", duration: 1.08, ease: "power4.out" },
+        )
+        .fromTo(
+          image,
+          { scale: 1.08, autoAlpha: 0.8 },
+          { scale: 1, autoAlpha: 1, duration: 1.25, ease: "power4.out" },
+          0,
+        );
+    });
+  }
+
+  function forceHiddenRevealsVisible() {
+    if (reduceMotion) return;
+    ScrollTrigger.refresh();
+    const targets = gsap.utils.toArray("[data-motion-text], [data-reveal], [data-reveal-item]");
+    const hiddenTargets = targets.filter((element) => {
+      const rect = element.getBoundingClientRect();
+      const shouldBeVisibleNow = rect.bottom > -80 && rect.top < window.innerHeight * 1.1;
+      if (!shouldBeVisibleNow) return false;
+      const style = window.getComputedStyle(element);
+      const hiddenWords = Array.from(element.querySelectorAll(".motion-word")).some((word) => {
+        const wordStyle = window.getComputedStyle(word);
+        return wordStyle.visibility === "hidden" || Number(wordStyle.opacity) < 0.98;
+      });
+      return style.visibility === "hidden" || Number(style.opacity) < 0.98 || hiddenWords;
+    });
+    if (!hiddenTargets.length) return;
+    hiddenTargets.forEach((element) => {
+      const words = element.querySelectorAll(".motion-word");
+      gsap.killTweensOf(element);
+      gsap.set(element, {
+        autoAlpha: 1,
+        filter: "none",
+        yPercent: 0,
+        y: 0,
+        x: 0,
+        clearProps: "transform",
+      });
+      if (words.length) {
+        gsap.killTweensOf(words);
+        gsap.set(words, {
+          autoAlpha: 1,
+          filter: "none",
+          yPercent: 0,
+          clearProps: "transform",
+        });
+      }
+    });
+  }
+
+  function initParallax() {
+    if (reduceMotion) return;
+    gsap.utils.toArray("[data-parallax-image], [data-parallax-layer]").forEach((layer) => {
+      const speed = Number(layer.dataset.parallaxSpeed || 0.12);
+      const section = layer.closest("[data-parallax-section]") || layer;
+      gsap.to(layer, {
+        y: () => window.innerHeight * speed * -1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+  }
+
+  function initMarqueeVisibility() {
+    const marquees = gsap.utils.toArray(".logo-marquee");
+    if (!marquees.length) return;
+
+    if (reduceMotion) {
+      marquees.forEach((track) => track.classList.remove("is-inview"));
+      return;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      marquees.forEach((track) => track.classList.add("is-inview"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-inview", entry.isIntersecting);
+        });
+      },
+      { rootMargin: "0px", threshold: 0.01 },
+    );
+
+    marquees.forEach((track) => observer.observe(track));
+  }
+
+  function initHorizontalGalleries() {
+    if (reduceMotion || window.matchMedia("(max-width: 767px)").matches) return;
+    gsap.utils.toArray("[data-horizontal-gallery]").forEach((section) => {
+      const track = section.querySelector("[data-horizontal-track]");
+      if (!track) return;
+      gsap.to(track, {
+        x: () => -(track.scrollWidth - window.innerWidth + 64),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${track.scrollWidth}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+  }
+
+  function initMagnetic() {
+    if (reduceMotion || window.matchMedia("(pointer: coarse)").matches) return;
+    gsap.utils.toArray("[data-magnetic]").forEach((element) => {
+      const strength = Number(element.dataset.magnetic || 0.15);
+      const xTo = gsap.quickTo(element, "x", { duration: 0.45, ease: "power3.out" });
+      const yTo = gsap.quickTo(element, "y", { duration: 0.45, ease: "power3.out" });
+      element.addEventListener("pointermove", (event) => {
+        const rect = element.getBoundingClientRect();
+        xTo((event.clientX - rect.left - rect.width / 2) * strength);
+        yTo((event.clientY - rect.top - rect.height / 2) * strength);
+      });
+      element.addEventListener("pointerleave", () => {
+        xTo(0);
+        yTo(0);
+      });
+    });
+  }
+
+  function init() {
+    initTextReveals();
+    initScrollReveals();
+    initImageReveals();
+    initParallax();
+    initHorizontalGalleries();
+    initMagnetic();
+    initMarqueeVisibility();
+    ScrollTrigger.refresh();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+
+  window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
+    window.setTimeout(forceHiddenRevealsVisible, 400);
+  });
+</script>

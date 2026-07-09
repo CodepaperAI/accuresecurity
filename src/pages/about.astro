@@ -1,0 +1,84 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/Button.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import SectionIntro from "@/components/SectionIntro.astro";
+import { processSteps, trustSignals } from "@/data/site";
+import { organizationSchema, breadcrumbSchema } from "@/data/schema";
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="About Accure Security | Ontario Security Services"
+  description="Learn about Accure Security's Ontario security services, field-first planning, licensed guards, mobile patrol, event security, monitoring, CCTV, and access control."
+  canonical="/about/"
+  image="/images/services/campus-security.jpg"
+  schema={schema}
+>
+  <section class="section-shell pt-36 pb-20 md:pt-44">
+    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">About Accure</span>
+        <h1 class="headline mt-7 text-[clamp(4rem,11vw,10rem)]" data-motion-text="words">
+          Security built around people, property, and procedure.
+        </h1>
+      </div>
+      <div data-reveal="fade-up">
+        <p class="copy">
+          Accure Security provides physical and digital security services for Ontario organizations that need reliable field presence, responsive planning, and clear reporting.
+        </p>
+        <div class="mt-8">
+          <Button href="/contact/" label="Start a coverage plan" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell py-24 md:py-32">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <SectionIntro
+        eyebrow="Operating principles"
+        title="Visible presence matters. So does what happens after the first observation."
+        text="The site and service architecture are designed around the same idea: make it easy for property managers, event organizers, and facility leaders to understand what Accure can deploy."
+      />
+      <div class="grid gap-4" data-reveal-group>
+        {trustSignals.map((signal, index) => (
+          <div class="bezel" data-reveal-item>
+            <div class="bezel-core flex gap-5 p-6">
+              <span class="font-utility text-sm font-semibold text-[var(--accure-red)]">0{index + 1}</span>
+              <p class="font-semibold text-lg">{signal}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-panel py-24 text-[#fffdf8] md:py-32">
+    <div class="section-shell">
+      <SectionIntro
+        eyebrow="Method"
+        title="From site assessment to documented reporting."
+        inverted
+      />
+      <div class="mt-12 grid gap-5 md:grid-cols-2" data-reveal-group>
+        {processSteps.map((step) => (
+          <article class="rounded-[1.2rem] border border-white/12 bg-white/10 p-7" data-reveal-item>
+            <p class="font-utility text-xs font-semibold uppercase tracking-[0.18em] text-[#f1e8db]">{step.label}</p>
+            <h2 class="mt-5 font-display text-4xl font-bold leading-none">{step.title}</h2>
+            <p class="mt-5 font-medium leading-7 text-[#fffdf8]">{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <QuoteBand />
+</BaseLayout>

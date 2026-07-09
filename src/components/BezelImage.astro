@@ -1,0 +1,24 @@
+---
+type Props = {
+  src: string;
+  alt: string;
+  class?: string;
+  imageClass?: string;
+  priority?: boolean;
+};
+
+const { src, alt, class: className = "", imageClass = "", priority = false } = Astro.props as Props;
+---
+
+<figure class:list={["bezel", className]} data-image-reveal data-parallax-section>
+  <div class="bezel-core">
+    <img
+      src={src}
+      alt={alt}
+      class:list={["h-full min-h-[420px] w-full object-cover", imageClass]}
+      data-parallax-image
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+    />
+  </div>
+</figure>

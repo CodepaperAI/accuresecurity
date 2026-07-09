@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { organizationSchema, breadcrumbSchema } from "@/data/schema";
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Privacy", url: "/privacy/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Privacy Policy | Accure Security"
+  description="Privacy information for Accure Security website quote requests and contact form submissions."
+  canonical="/privacy/"
+  schema={schema}
+>
+  <section class="section-shell pt-36 pb-24 md:pt-44 md:pb-32">
+    <div class="max-w-4xl">
+      <span class="eyebrow" data-reveal="fade-up">Privacy</span>
+      <h1 class="headline mt-7 text-[clamp(4rem,10vw,8rem)]" data-motion-text="words">
+        Privacy policy.
+      </h1>
+      <div class="copy mt-10 space-y-6" data-reveal="fade-up">
+        <p>
+          Accure Security uses website contact and quote-request information to respond to service inquiries, understand site requirements, and communicate about requested security services.
+        </p>
+        <p>
+          Contact forms may collect name, email, phone number, site location, service type, and message details. Do not submit sensitive information that is not needed for an initial quote request.
+        </p>
+        <p>
+          Hosting, analytics, or form-processing providers may process technical information such as IP address, browser type, device information, and submission metadata. Final production privacy language should be reviewed by the business before launch.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

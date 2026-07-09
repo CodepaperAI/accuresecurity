@@ -1,0 +1,25 @@
+---
+type Props = {
+  eyebrow: string;
+  title: string;
+  text?: string;
+  align?: "left" | "center";
+  inverted?: boolean;
+};
+
+const { eyebrow, title, text, align = "left", inverted = false } = Astro.props as Props;
+---
+
+<div class:list={["max-w-4xl", align === "center" && "mx-auto text-center"]}>
+  <span class="eyebrow" data-reveal="fade-up">{eyebrow}</span>
+  <h2
+    class:list={[
+      "headline mt-6 text-[clamp(2.35rem,4.8vw,5.2rem)]",
+      inverted ? "text-[#fffdf8]" : "text-[var(--ink)]",
+    ]}
+    data-motion-text="words"
+  >
+    {title}
+  </h2>
+  {text && <p class:list={["copy mt-6", align === "center" && "mx-auto"]} data-reveal="fade-up">{text}</p>}
+</div>
