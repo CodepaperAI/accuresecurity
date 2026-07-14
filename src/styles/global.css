@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -99,7 +99,7 @@ select {
 }
 
 .font-display {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
 
 .font-utility {
@@ -139,10 +139,10 @@ select {
 }
 
 .headline {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 700;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
   letter-spacing: 0;
-  line-height: 1;
+  line-height: 0.96;
   text-wrap: balance;
 }
 
@@ -228,9 +228,9 @@ select {
 }
 
 .card-title {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(1.7rem, 2.05vw, 2.35rem);
-  line-height: 1.08;
+  line-height: 1.06;
 }
 
 .copy {
