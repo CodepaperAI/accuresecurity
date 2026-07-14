@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import MediaHero from "@/components/MediaHero.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import SectionIntro from "@/components/SectionIntro.astro";
 import { portfolioImages, clientLogos } from "@/data/assets";
@@ -21,21 +22,16 @@ const schema = [
   image="/images/portfolio/night-event-team.jpg"
   schema={schema}
 >
-  <section class="section-shell pt-36 pb-20 md:pt-44">
-    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
-      <div>
-        <span class="eyebrow" data-reveal="fade-up">Portfolio</span>
-        <h1 class="headline mt-7 text-[clamp(4rem,11vw,10rem)]" data-motion-text="words">
-          Field coverage shown through teams, venues, and crowd environments.
-        </h1>
-      </div>
-      <p class="copy" data-reveal="fade-up">
-        This gallery uses group and operational event images instead of solo portraits. The focus is visible readiness, crowd environments, and professional team presence.
-      </p>
-    </div>
-  </section>
+  <MediaHero
+    eyebrow="Portfolio"
+    title="Security teams in real field coverage."
+    text="This gallery uses group and operational event images instead of solo portraits. The focus is visible readiness, crowd environments, and professional team presence."
+    image="/images/portfolio/night-event-team.jpg"
+    alt="Accure Security team providing night event coverage at a venue."
+    actions={[{ href: "/contact/", label: "Request event coverage" }, { href: "/security-services/event-security/", label: "View event security", variant: "secondary" }]}
+  />
 
-  <section class="section-shell pb-24 md:pb-32">
+  <section class="section-shell py-14 md:py-20">
     <div class="grid gap-5 md:grid-cols-2" data-reveal-group>
       {portfolioImages.map((image, index) => (
         <figure class:list={["bezel", index === 0 && "md:col-span-2"]} data-reveal-item data-image-reveal>
@@ -51,7 +47,7 @@ const schema = [
               ]}
             />
             <figcaption class="p-6">
-              <h2 class="font-display text-4xl font-bold leading-none">{image.title}</h2>
+              <h2 class="font-display card-title font-bold">{image.title}</h2>
             </figcaption>
           </div>
         </figure>
@@ -59,7 +55,7 @@ const schema = [
     </div>
   </section>
 
-  <section class="dark-panel py-24 text-[#fffdf8] md:py-32">
+  <section class="dark-panel py-16 text-[#fffdf8] md:py-24">
     <div class="section-shell">
       <SectionIntro
         eyebrow="Client and venue experience"

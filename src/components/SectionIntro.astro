@@ -14,7 +14,7 @@ const { eyebrow, title, text, align = "left", inverted = false } = Astro.props a
   <span class="eyebrow" data-reveal="fade-up">{eyebrow}</span>
   <h2
     class:list={[
-      "headline mt-6 text-[clamp(2.35rem,4.8vw,5.2rem)]",
+      "headline mt-6 section-title",
       inverted ? "text-[#fffdf8]" : "text-[var(--ink)]",
     ]}
     data-motion-text="words"

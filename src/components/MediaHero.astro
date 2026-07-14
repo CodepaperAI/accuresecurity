@@ -1,0 +1,64 @@
+---
+type HeroAction = {
+  href: string;
+  label: string;
+  variant?: "primary" | "secondary";
+};
+
+type Props = {
+  eyebrow: string;
+  title: string;
+  text?: string;
+  image: string;
+  alt: string;
+  actions?: HeroAction[];
+};
+
+const { eyebrow, title, text, image, alt, actions = [] } = Astro.props as Props;
+---
+
+<section class="media-hero relative min-h-[78dvh] overflow-hidden bg-[var(--charcoal)] text-[#fffdf8]" data-parallax-section>
+  <img
+    src={image}
+    alt={alt}
+    loading="eager"
+    decoding="async"
+    class="absolute inset-0 h-[110%] w-full object-cover object-[54%_50%] opacity-95"
+    data-parallax-layer
+    data-parallax-speed="0.045"
+  />
+  <div class="media-hero-overlay absolute inset-0"></div>
+  <div class="section-shell relative z-10 flex min-h-[78dvh] flex-col justify-end pb-12 pt-32 md:pb-16 md:pt-36">
+    <div class="max-w-5xl">
+      <p class="font-utility text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#f0c4c6]" data-reveal="fade-up">
+        {eyebrow}
+      </p>
+      <h1 class="headline media-hero-title mt-5" data-motion-text="words">{title}</h1>
+      {text && (
+        <>
+          <div class="mt-6 h-px max-w-2xl bg-white/24"></div>
+          <p class="mt-6 max-w-[58ch] text-[1rem] font-semibold leading-8 text-[#fffdf8] md:text-[1.1rem]" data-reveal="fade-up">
+            {text}
+          </p>
+        </>
+      )}
+      {actions.length > 0 && (
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center" data-reveal="fade-up">
+          {actions.map((action) => (
+            <a
+              href={action.href}
+              data-magnetic="0.12"
+              class:list={[
+                "media-hero-cta group",
+                action.variant === "secondary" ? "media-hero-cta-secondary" : "media-hero-cta-primary",
+              ]}
+            >
+              <span>{action.label}</span>
+              <span aria-hidden="true" class="media-hero-cta-icon">&rarr;</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

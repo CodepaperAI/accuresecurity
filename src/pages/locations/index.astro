@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Button from "@/components/Button.astro";
+import MediaHero from "@/components/MediaHero.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import { locations } from "@/data/locations";
 import { organizationSchema, breadcrumbSchema } from "@/data/schema";
@@ -21,32 +21,22 @@ const schema = [
   image="/images/services/mobile-patrol-alarm-response.jpg"
   schema={schema}
 >
-  <section class="section-shell pt-36 pb-20 md:pt-44">
-    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
-      <div>
-        <span class="eyebrow" data-reveal="fade-up">Ontario coverage</span>
-        <h1 class="headline mt-7 text-[clamp(4rem,11vw,10rem)]" data-motion-text="words">
-          Branch-backed security pages for local search.
-        </h1>
-      </div>
-      <div data-reveal="fade-up">
-        <p class="copy">
-          These location pages support local SEO and give property owners a clearer path to branch-specific guard, patrol, event, construction, healthcare, CCTV, and access control services.
-        </p>
-        <div class="mt-8">
-          <Button href="/contact/" label="Request local coverage" />
-        </div>
-      </div>
-    </div>
-  </section>
+  <MediaHero
+    eyebrow="Ontario coverage"
+    title="Security coverage across Ontario branches."
+    text="These location pages support local SEO and give property owners a clearer path to branch-specific guard, patrol, event, construction, healthcare, CCTV, and access control services."
+    image="/images/services/mobile-patrol-alarm-response.jpg"
+    alt="Accure Security mobile patrol vehicle ready for Ontario site response."
+    actions={[{ href: "/contact/", label: "Request local coverage" }]}
+  />
 
-  <section class="section-shell pb-24 md:pb-32">
+  <section class="section-shell py-14 md:py-20">
     <div class="grid gap-5 lg:grid-cols-2" data-reveal-group>
       {locations.map((location) => (
         <a href={`/locations/${location.slug}/`} class="bezel group" data-reveal-item>
           <article class="bezel-core p-7">
             <p class="font-utility text-xs font-semibold uppercase tracking-[0.17em] text-[var(--accure-red-dark)]">{location.label}</p>
-            <h2 class="mt-4 font-display text-5xl font-bold leading-none">{location.city}</h2>
+            <h2 class="mt-4 font-display card-title font-bold">{location.city}</h2>
             <p class="mt-5 font-semibold text-[var(--ink)]">{location.address}</p>
             {location.landmark && <p class="mt-2 text-sm font-semibold text-[var(--ink)]">{location.landmark}</p>}
             <div class="mt-7 flex flex-wrap gap-2">

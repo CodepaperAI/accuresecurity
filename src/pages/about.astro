@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Button from "@/components/Button.astro";
+import MediaHero from "@/components/MediaHero.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import SectionIntro from "@/components/SectionIntro.astro";
 import { processSteps, trustSignals } from "@/data/site";
@@ -22,26 +22,16 @@ const schema = [
   image="/images/services/campus-security.jpg"
   schema={schema}
 >
-  <section class="section-shell pt-36 pb-20 md:pt-44">
-    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
-      <div>
-        <span class="eyebrow" data-reveal="fade-up">About Accure</span>
-        <h1 class="headline mt-7 text-[clamp(4rem,11vw,10rem)]" data-motion-text="words">
-          Security built around people, property, and procedure.
-        </h1>
-      </div>
-      <div data-reveal="fade-up">
-        <p class="copy">
-          Accure Security provides physical and digital security services for Ontario organizations that need reliable field presence, responsive planning, and clear reporting.
-        </p>
-        <div class="mt-8">
-          <Button href="/contact/" label="Start a coverage plan" />
-        </div>
-      </div>
-    </div>
-  </section>
+  <MediaHero
+    eyebrow="About Accure"
+    title="Security built around people, property, and procedure."
+    text="Accure Security provides physical and digital security services for Ontario organizations that need reliable field presence, responsive planning, and clear reporting."
+    image="/images/portfolio/team-field-briefing.jpg"
+    alt="Accure Security team gathered for field briefing."
+    actions={[{ href: "/contact/", label: "Start a coverage plan" }]}
+  />
 
-  <section class="section-shell py-24 md:py-32">
+  <section class="section-shell py-14 md:py-20">
     <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
       <SectionIntro
         eyebrow="Operating principles"
@@ -61,7 +51,7 @@ const schema = [
     </div>
   </section>
 
-  <section class="dark-panel py-24 text-[#fffdf8] md:py-32">
+  <section class="dark-panel py-16 text-[#fffdf8] md:py-24">
     <div class="section-shell">
       <SectionIntro
         eyebrow="Method"
@@ -72,7 +62,7 @@ const schema = [
         {processSteps.map((step) => (
           <article class="rounded-[1.2rem] border border-white/12 bg-white/10 p-7" data-reveal-item>
             <p class="font-utility text-xs font-semibold uppercase tracking-[0.18em] text-[#f1e8db]">{step.label}</p>
-            <h2 class="mt-5 font-display text-4xl font-bold leading-none">{step.title}</h2>
+            <h2 class="mt-5 font-display card-title font-bold">{step.title}</h2>
             <p class="mt-5 font-medium leading-7 text-[#fffdf8]">{step.text}</p>
           </article>
         ))}

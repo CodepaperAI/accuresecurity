@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Button from "@/components/Button.astro";
+import MediaHero from "@/components/MediaHero.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import { digitalServices, serviceUrl } from "@/data/services";
 import { organizationSchema, breadcrumbSchema } from "@/data/schema";
@@ -21,34 +21,24 @@ const schema = [
   image="/images/services/camera-system-installation-cctv.jpg"
   schema={schema}
 >
-  <section class="section-shell pt-36 pb-20 md:pt-44">
-    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
-      <div>
-        <span class="eyebrow" data-reveal="fade-up">Digital security systems</span>
-        <h1 class="headline mt-7 text-[clamp(4rem,11vw,10rem)]" data-motion-text="words">
-          Monitoring, cameras, and access control built around the site.
-        </h1>
-      </div>
-      <div data-reveal="fade-up">
-        <p class="copy">
-          Cameras and access systems work best when they are planned around movement, blind spots, restricted zones, alerts, and response procedures. Accure helps connect visibility with action.
-        </p>
-        <div class="mt-8">
-          <Button href="/contact/" label="Plan security systems" />
-        </div>
-      </div>
-    </div>
-  </section>
+  <MediaHero
+    eyebrow="Digital security systems"
+    title="Cameras, access, and monitoring systems."
+    text="Cameras and access systems work best when they are planned around movement, blind spots, restricted zones, alerts, and response procedures. Accure helps connect visibility with action."
+    image="/images/services/camera-system-installation-cctv.jpg"
+    alt="Security camera and monitoring equipment installed for site visibility."
+    actions={[{ href: "/contact/", label: "Plan security systems" }]}
+  />
 
-  <section class="section-shell pb-24 md:pb-32">
+  <section class="section-shell py-14 md:py-20">
     <div class="grid gap-5 lg:grid-cols-3" data-reveal-group>
       {digitalServices.map((service) => (
         <a href={serviceUrl(service)} class="bezel group block" data-reveal-item>
           <article class="bezel-core h-full">
-            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" class="h-80 w-full object-cover transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.035]" />
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" class="h-64 w-full object-cover transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.035]" />
             <div class="p-6">
               <p class="font-utility text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accure-red-dark)]">{service.eyebrow}</p>
-              <h2 class="mt-3 font-display text-4xl font-bold leading-none">{service.title}</h2>
+              <h2 class="mt-3 font-display card-title font-bold">{service.title}</h2>
               <p class="copy mt-4">{service.summary}</p>
             </div>
           </article>

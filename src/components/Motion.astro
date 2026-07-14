@@ -7,7 +7,7 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   gsap.registerPlugin(ScrollTrigger);
-  gsap.defaults({ ease: "power3.out", duration: 0.55 });
+  gsap.defaults({ ease: "power3.out", duration: 0.78 });
 
   if (!reduceMotion) {
     document.documentElement.classList.add("has-motion");
@@ -63,16 +63,16 @@
       gsap.set(element, { autoAlpha: 1 });
       gsap.fromTo(
         words,
-        { yPercent: 24, autoAlpha: 0.35 },
+        { yPercent: 42, autoAlpha: 0 },
         {
           yPercent: 0,
           autoAlpha: 1,
-          duration: 0.55,
+          duration: 0.76,
           ease: "power4.out",
-          stagger: 0.03,
+          stagger: 0.035,
           scrollTrigger: {
             trigger: element,
-            start: "top 92%",
+            start: "top 98%",
             once: true,
           },
         },
@@ -81,10 +81,10 @@
   }
 
   const revealPresets = {
-    "fade-up": { from: { y: 16, autoAlpha: 0.35 }, to: { y: 0, autoAlpha: 1 } },
-    "slide-left": { from: { x: 24, autoAlpha: 0.35 }, to: { x: 0, autoAlpha: 1 } },
-    "slide-right": { from: { x: -24, autoAlpha: 0.35 }, to: { x: 0, autoAlpha: 1 } },
-    scale: { from: { scale: 0.98, autoAlpha: 0.35 }, to: { scale: 1, autoAlpha: 1 } },
+    "fade-up": { from: { y: 28, autoAlpha: 0 }, to: { y: 0, autoAlpha: 1 } },
+    "slide-left": { from: { x: 36, autoAlpha: 0 }, to: { x: 0, autoAlpha: 1 } },
+    "slide-right": { from: { x: -36, autoAlpha: 0 }, to: { x: 0, autoAlpha: 1 } },
+    scale: { from: { scale: 0.965, autoAlpha: 0 }, to: { scale: 1, autoAlpha: 1 } },
   };
 
   function initScrollReveals() {
@@ -98,16 +98,16 @@
       gsap.set(group, { autoAlpha: 1 });
       gsap.fromTo(
         items,
-        { y: 12, autoAlpha: 0.35 },
+        { y: 28, autoAlpha: 0 },
         {
           y: 0,
           autoAlpha: 1,
-          duration: 0.55,
+          duration: 0.72,
           ease: "power4.out",
-          stagger: 0.03,
+          stagger: 0.04,
           scrollTrigger: {
             trigger: group,
-            start: "top 92%",
+            start: "top 98%",
             once: true,
           },
         },
@@ -119,12 +119,12 @@
       gsap.set(element, { autoAlpha: 1 });
       gsap.fromTo(element, preset.from, {
         ...preset.to,
-        duration: 0.55,
+        duration: 0.72,
         ease: "power4.out",
         delay: Number(element.dataset.revealDelay || 0),
         scrollTrigger: {
           trigger: element,
-          start: "top 92%",
+          start: "top 98%",
           once: true,
         },
       });
@@ -143,7 +143,7 @@
       gsap.timeline({
         scrollTrigger: {
           trigger: figure,
-          start: "top 92%",
+          start: "top 98%",
           once: true,
         },
       })

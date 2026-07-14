@@ -146,6 +146,93 @@ select {
   text-wrap: balance;
 }
 
+.hero-title {
+  font-size: clamp(2.55rem, 4.15vw, 4.85rem);
+  line-height: 1.02;
+  max-width: 15ch;
+}
+
+.home-hero-title {
+  font-size: clamp(2.7rem, 4.25vw, 5.05rem);
+  line-height: 0.98;
+  max-width: 16.5ch;
+}
+
+.media-hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(12,11,10,0.88) 0%, rgba(12,11,10,0.64) 36%, rgba(12,11,10,0.22) 70%, rgba(12,11,10,0.44) 100%),
+    linear-gradient(180deg, rgba(12,11,10,0.32) 0%, rgba(12,11,10,0.08) 42%, rgba(12,11,10,0.84) 100%);
+}
+
+.media-hero-title {
+  font-size: clamp(2.65rem, 4.45vw, 5.25rem);
+  line-height: 0.98;
+  max-width: 18ch;
+}
+
+.media-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  border-radius: 999px;
+  padding: 0.45rem 0.45rem 0.45rem 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 800;
+  transition: transform 300ms var(--ease-out), background 300ms var(--ease-out), color 300ms var(--ease-out), border-color 300ms var(--ease-out);
+}
+
+.media-hero-cta:active {
+  transform: scale(0.985);
+}
+
+.media-hero-cta-primary {
+  background: var(--accure-red);
+  color: var(--white);
+  box-shadow: 0 22px 58px -28px rgba(0,0,0,0.86);
+}
+
+.media-hero-cta-primary:hover {
+  background: #cf242c;
+}
+
+.media-hero-cta-secondary {
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+}
+
+.media-hero-cta-secondary:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+.media-hero-cta-icon {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--accure-red);
+  transition: transform 300ms var(--ease-out);
+}
+
+.media-hero-cta:hover .media-hero-cta-icon {
+  transform: translate(4px, -1px);
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 2.85vw, 3.35rem);
+  line-height: 1.08;
+  max-width: 17ch;
+}
+
+.card-title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.7rem, 2.05vw, 2.35rem);
+  line-height: 1.08;
+}
+
 .copy {
   max-width: 65ch;
   color: var(--ink);
@@ -375,6 +462,34 @@ html.has-motion [data-image-reveal] {
 @media (max-width: 767px) {
   .section-shell {
     width: min(100% - 1rem, 1440px);
+  }
+
+  .hero-title {
+    font-size: clamp(2.35rem, 10vw, 3.15rem);
+    max-width: 13ch;
+  }
+
+  .home-hero-title,
+  .media-hero-title {
+    font-size: clamp(2.35rem, 10vw, 3.25rem);
+    max-width: 16ch;
+  }
+
+  .media-hero {
+    min-height: 72dvh;
+  }
+
+  .media-hero .section-shell {
+    min-height: 72dvh;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 7vw, 2.35rem);
+    max-width: 100%;
+  }
+
+  .card-title {
+    font-size: clamp(1.6rem, 6.5vw, 2.05rem);
   }
 
   .bezel {
