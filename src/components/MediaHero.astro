@@ -11,10 +11,11 @@ type Props = {
   text?: string;
   image: string;
   alt: string;
+  imagePosition?: string;
   actions?: HeroAction[];
 };
 
-const { eyebrow, title, text, image, alt, actions = [] } = Astro.props as Props;
+const { eyebrow, title, text, image, alt, imagePosition = "54% 50%", actions = [] } = Astro.props as Props;
 ---
 
 <section class="media-hero relative min-h-[78dvh] overflow-hidden bg-[var(--charcoal)] text-[#fffdf8]" data-parallax-section>
@@ -23,7 +24,8 @@ const { eyebrow, title, text, image, alt, actions = [] } = Astro.props as Props;
     alt={alt}
     loading="eager"
     decoding="async"
-    class="absolute inset-0 h-[110%] w-full object-cover object-[54%_50%] opacity-95"
+    class="absolute inset-0 h-[110%] w-full object-cover opacity-95"
+    style={`object-position: ${imagePosition};`}
     data-parallax-layer
     data-parallax-speed="0.045"
   />

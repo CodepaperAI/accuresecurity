@@ -24,6 +24,11 @@ export const clientLogos = [
 
 export const portfolioImages = [
   {
+    title: "Live event crowd control",
+    src: "/images/portfolio/event-floor-security.jpg",
+    alt: "Accure Security officer watching a busy stage and crowd barrier during live event coverage.",
+  },
+  {
     title: "Outdoor community event coverage",
     src: "/images/portfolio/community-event-team.jpg",
     alt: "Accure Security team providing group coverage at an outdoor community event.",
