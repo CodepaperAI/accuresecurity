@@ -4,7 +4,7 @@ import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
 import { locations } from "@/data/locations";
 import { homepageFaqs } from "@/data/faqs";
 import { processSteps, trustSignals } from "@/data/site";
-import { clientLogos, portfolioImages } from "@/data/assets";
+import { clientLogos } from "@/data/assets";
 import { organizationSchema, websiteSchema, faqSchema, breadcrumbSchema } from "@/data/schema";
 
 const schema = [
@@ -15,8 +15,8 @@ const schema = [
 ];
 
 const featuredServices = [
-  physicalServices[2],
   physicalServices[0],
+  physicalServices[1],
   physicalServices[5],
   physicalServices[6],
   digitalServices[0],
@@ -27,16 +27,16 @@ const featuredServices = [
 <BaseLayout
   title="Accure Security | Security Guard Services Across Ontario"
   description="Accure Security provides security guards, mobile patrol, event security, construction site protection, remote monitoring, CCTV, and access control across Ontario."
-  image="/images/portfolio/event-floor-security.jpg"
+  image="/images/services/commercial-industrial-security.jpg"
   schema={schema}
 >
   <section class="relative min-h-[100dvh] overflow-hidden bg-[var(--charcoal)] text-[#fffdf8]" data-parallax-section>
     <img
-      src="/images/portfolio/event-floor-security.jpg"
-      alt="Accure Security officer watching a busy stage and crowd barrier during live event coverage."
+      src="/images/services/commercial-industrial-security.jpg"
+      alt="Accure Security officers walking a commercial campus patrol route."
       loading="eager"
       decoding="async"
-      class="absolute inset-0 h-[108%] w-full object-cover object-[48%_52%] opacity-95"
+      class="absolute inset-0 h-[108%] w-full object-cover object-[48%_48%] opacity-95"
       data-parallax-layer
       data-parallax-speed="0.04"
     />
@@ -168,15 +168,15 @@ const featuredServices = [
     <div class="section-shell grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
       <div>
         <p class="font-utility text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#f0c4c6]" data-reveal="fade-up">Field proof</p>
-        <h2 class="headline section-title mt-5 text-[#fffdf8]" data-motion-text="words">Visible coverage where the crowd actually moves.</h2>
+        <h2 class="headline section-title mt-5 text-[#fffdf8]" data-motion-text="words">Visible coverage where risk actually sits.</h2>
         <p class="mt-6 max-w-[58ch] text-[1.02rem] font-semibold leading-8 text-[#fffdf8]" data-reveal="fade-up">
-          The portfolio section should feel like proof, not decoration. This field image anchors the site in real crowd-control work, stage-side awareness, and documented event presence.
+          The proof section should feel operational, not decorative. This image anchors the site in site protection, perimeter awareness, and branded field presence beyond event coverage.
         </p>
         <div class="mt-8 grid max-w-xl grid-cols-3 border-y border-white/16 text-white" data-reveal="fade-up">
           {[
-            ["Event", "crowd flow"],
-            ["Venue", "floor presence"],
-            ["Team", "documentation"],
+            ["Site", "perimeter checks"],
+            ["Asset", "loss prevention"],
+            ["Guard", "field presence"],
           ].map(([value, label]) => (
             <div class="border-r border-white/12 py-4 pr-3 last:border-r-0">
               <p class="font-display text-2xl font-extrabold leading-none">{value}</p>
@@ -185,18 +185,18 @@ const featuredServices = [
           ))}
         </div>
         <div class="mt-8 flex flex-wrap gap-x-7 gap-y-4" data-reveal="fade-up">
+          <a href="/security-services/construction-site-security/" class="group inline-flex items-center gap-2 border-b border-white/32 pb-1 font-utility text-[0.72rem] font-semibold uppercase tracking-[0.14em] transition duration-300 hover:border-white">
+            Construction security <span aria-hidden="true" class="transition duration-300 group-hover:translate-x-1">&rarr;</span>
+          </a>
           <a href="/portfolio/" class="group inline-flex items-center gap-2 border-b border-white/32 pb-1 font-utility text-[0.72rem] font-semibold uppercase tracking-[0.14em] transition duration-300 hover:border-white">
             View portfolio <span aria-hidden="true" class="transition duration-300 group-hover:translate-x-1">&rarr;</span>
-          </a>
-          <a href="/security-services/event-security/" class="group inline-flex items-center gap-2 border-b border-white/32 pb-1 font-utility text-[0.72rem] font-semibold uppercase tracking-[0.14em] transition duration-300 hover:border-white">
-            Event security <span aria-hidden="true" class="transition duration-300 group-hover:translate-x-1">&rarr;</span>
           </a>
         </div>
       </div>
       <figure class="field-proof-media" data-image-reveal>
-        <img src={portfolioImages[0].src} alt={portfolioImages[0].alt} loading="lazy" decoding="async" />
+        <img src="/images/services/construction-site-security.jpg" alt="Accure Security guard monitoring an active construction site perimeter." loading="lazy" decoding="async" />
         <figcaption>
-          {portfolioImages[0].title} / field documentation
+          Construction site security / field documentation
         </figcaption>
       </figure>
     </div>
