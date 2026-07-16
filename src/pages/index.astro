@@ -87,7 +87,7 @@ const testimonials = [
       <div class="mt-12 grid max-w-4xl grid-cols-3 border-y border-white/20 text-white backdrop-blur-sm">
         {[
           ["24/7", "coverage requests"],
-          ["5", "Ontario branches"],
+          ["Licensed", "guard teams"],
           ["Guard +", "systems planning"],
         ].map(([value, label]) => (
           <div class="border-r border-white/16 py-4 pr-3 last:border-r-0 sm:py-5">
@@ -247,46 +247,25 @@ const testimonials = [
     </div>
   </section>
 
-  <section class="location-coverage-band py-16 md:py-24">
+  <section class="service-area-strip py-10 md:py-12" aria-label="Ontario service areas">
     <div class="section-shell">
-      <div class="grid gap-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-start">
-        <div class="lg:sticky lg:top-28">
-          <p class="font-utility text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--accure-red-dark)]">Locations</p>
-          <h2 class="headline section-title mt-5" data-motion-text="words">Branch-backed pages with real local coverage.</h2>
-          <p class="copy mt-6" data-reveal="fade-up">Each location page uses the branch address, nearby service areas, local property needs, service links, and structured data so the SEO work feels useful to real buyers.</p>
-          <div class="mt-8 grid max-w-md grid-cols-2 gap-3" data-reveal="fade-up">
-            <div class="location-mini-stat">
-              <strong>5</strong>
-              <span>Ontario branches</span>
-            </div>
-            <div class="location-mini-stat">
-              <strong>20+</strong>
-              <span>Service areas</span>
-            </div>
-          </div>
+      <div class="service-area-panel" data-reveal="fade-up">
+        <div class="service-area-copy">
+          <p class="font-utility text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-[var(--accure-red-dark)]">Service areas</p>
+          <h2 class="service-area-title">Ontario coverage areas.</h2>
+          <p class="service-area-text">Branch-backed coverage details are available for nearby buyers who need local service context.</p>
         </div>
-        <div class="location-card-grid" data-reveal-group>
-          {locations.map((location, index) => (
+        <nav class="service-area-links" aria-label="Ontario location pages">
+          {locations.map((location) => (
             <a
               href={`/locations/${location.slug}/`}
-              class:list={["location-card group", index === 0 && "location-card-feature"]}
-              data-reveal-item
+              class="service-area-link"
             >
-              <p class="location-card-label">{location.label}</p>
-              <h3>{location.city}</h3>
-              <p class="location-card-address">{location.address}</p>
-              <div class="location-chip-row">
-                {location.nearby.slice(0, 3).map((nearby) => (
-                  <span>{nearby}</span>
-                ))}
-              </div>
-              <span class="location-card-link">
-                Open location
-                <span aria-hidden="true">&rarr;</span>
-              </span>
+              <span>{location.city}</span>
+              <small>{location.nearby.slice(0, 2).join(" / ")}</small>
             </a>
           ))}
-        </div>
+        </nav>
       </div>
     </div>
   </section>

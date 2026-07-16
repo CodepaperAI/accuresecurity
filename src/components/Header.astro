@@ -1,13 +1,11 @@
 ---
 import { physicalServices, serviceUrl } from "@/data/services";
-import { locations } from "@/data/locations";
 import { site } from "@/data/site";
 import Button from "./Button.astro";
 
 const navLinks = [
   { href: "/security-services/", label: "Services" },
   { href: "/security-systems/", label: "Systems" },
-  { href: "/locations/", label: "Locations" },
   { href: "/portfolio/", label: "Portfolio" },
   { href: "/about/", label: "About" },
 ];
@@ -84,7 +82,7 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
           {link.label}
         </a>
       ))}
-      <a style="--i:5" class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
+      <a style="--i:4" class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
         Request a quote
       </a>
     </div>
@@ -95,14 +93,6 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
         <div class="mt-4 grid gap-2">
           {physicalServices.slice(0, 5).map((service) => (
             <a class="font-semibold text-[#fffdf8]" href={serviceUrl(service)}>{service.shortTitle}</a>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Locations</p>
-        <div class="mt-4 grid gap-2">
-          {locations.slice(0, 5).map((location) => (
-            <a class="font-semibold text-[#fffdf8]" href={`/locations/${location.slug}/`}>{location.city}</a>
           ))}
         </div>
       </div>
