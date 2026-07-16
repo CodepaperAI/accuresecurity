@@ -16,7 +16,7 @@ const currentPath = Astro.url.pathname;
 const isActive = (href: string) => currentPath === href || (href !== "/" && currentPath.startsWith(href));
 ---
 
-<header class="fixed inset-x-0 top-0 z-40 pointer-events-none px-3 py-4 sm:px-6">
+<header class="site-header fixed inset-x-0 top-0 z-40 pointer-events-none px-3 py-4 sm:px-6">
   <nav class="mx-auto flex max-w-[1180px] items-center justify-between gap-3 rounded-full border border-black/15 bg-[#fffaf1]/92 p-2 shadow-[var(--shadow-md)] backdrop-blur-2xl pointer-events-auto">
     <a href="/" class="flex items-center gap-3 rounded-full pl-2 pr-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accure-red)]">
       <img src={site.logo} alt="Accure Security logo" class="h-11 w-11 rounded-full object-contain" />
@@ -115,13 +115,17 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
   const toggle = document.querySelector(".menu-toggle");
   const close = document.querySelector(".menu-close");
   const menu = document.querySelector(".mobile-menu");
+  const header = document.querySelector(".site-header");
   const links = document.querySelectorAll(".mobile-menu-link");
   const lines = document.querySelectorAll(".hamburger-line");
+  let lastScrollY = window.scrollY;
+  let scrollTicking = false;
 
   function setMenu(open) {
     if (!toggle || !menu) return;
     toggle.setAttribute("aria-expanded", String(open));
     menu.classList.toggle("hidden", !open);
+    header?.classList.remove("site-header-hidden");
     document.documentElement.classList.toggle("overflow-hidden", open);
     lines[0]?.classList.toggle("rotate-45", open);
     lines[0]?.classList.toggle("translate-y-0", open);
@@ -139,4 +143,30 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
   toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
   close?.addEventListener("click", () => setMenu(false));
   links.forEach((link) => link.addEventListener("click", () => setMenu(false)));
+  header?.addEventListener("focusin", () => header.classList.remove("site-header-hidden"));
+
+  function updateHeaderVisibility() {
+    if (!header || toggle?.getAttribute("aria-expanded") === "true") {
+      scrollTicking = false;
+      return;
+    }
+
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - lastScrollY;
+
+    if (currentScrollY < 90 || delta < -8) {
+      header.classList.remove("site-header-hidden");
+    } else if (delta > 8) {
+      header.classList.add("site-header-hidden");
+    }
+
+    lastScrollY = currentScrollY;
+    scrollTicking = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    window.requestAnimationFrame(updateHeaderVisibility);
+  }, { passive: true });
 </script>

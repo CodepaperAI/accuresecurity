@@ -82,6 +82,17 @@ a {
   transform: translateY(0);
 }
 
+.site-header {
+  transition:
+    transform 520ms var(--ease-out),
+    opacity 520ms var(--ease-out);
+}
+
+.site-header-hidden {
+  transform: translateY(calc(-100% - 1rem));
+  opacity: 0;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -309,6 +320,157 @@ select {
   overflow: hidden;
 }
 
+.service-card {
+  display: block;
+  height: 100%;
+  border: 1px solid rgba(73,43,30,0.14);
+  border-radius: 1.65rem;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.7), rgba(73,43,30,0.08)),
+    rgba(73,43,30,0.06);
+  padding: 0.42rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.82);
+  transition:
+    transform 520ms var(--ease-out),
+    border-color 520ms var(--ease-out),
+    background 520ms var(--ease-out),
+    box-shadow 520ms var(--ease-out);
+}
+
+.service-card:hover {
+  transform: translateY(-0.28rem);
+  border-color: rgba(127,20,26,0.26);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.82), rgba(179,31,37,0.08)),
+    rgba(73,43,30,0.07);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), var(--shadow-lg);
+}
+
+.service-card-inner {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: calc(1.65rem - 0.42rem);
+  background: rgba(255,250,241,0.96);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.94), var(--shadow-md);
+}
+
+.service-card-media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background: #e7ded2;
+}
+
+.service-card-media-tall {
+  aspect-ratio: 16 / 10;
+}
+
+.service-card-media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 42%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(21,21,21,0.18));
+  opacity: 0;
+  transition: opacity 520ms var(--ease-out);
+}
+
+.service-card:hover .service-card-media::after {
+  opacity: 1;
+}
+
+.service-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 48%;
+  filter: saturate(1.03) contrast(1.02);
+  transition:
+    transform 760ms var(--ease-out),
+    filter 760ms var(--ease-out);
+}
+
+.service-card:hover .service-card-media img {
+  transform: scale(1.035);
+  filter: saturate(1.1) contrast(1.04) brightness(1.02);
+}
+
+.service-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 18.5rem;
+  padding: clamp(1.25rem, 1.65vw, 1.75rem);
+}
+
+.service-card-directory .service-card-body {
+  min-height: 20rem;
+}
+
+.service-card-kicker {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--accure-red-dark);
+}
+
+.service-card-title {
+  margin-top: 0.85rem;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.45rem, 1.55vw, 2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.service-card-copy {
+  margin-top: 1rem;
+  color: var(--ink);
+  font-size: clamp(0.98rem, 0.9rem + 0.18vw, 1.05rem);
+  font-weight: 600;
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+.service-card-footer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: fit-content;
+  margin-top: auto;
+  padding-top: 1.35rem;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.service-card-icon {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--accure-red);
+  color: var(--white);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  transition: transform 420ms var(--ease-out);
+}
+
+.service-card:hover .service-card-icon {
+  transform: translate(4px, -1px);
+}
+
 .dark-panel {
   background:
     radial-gradient(circle at 12% 10%, rgba(179,31,37,0.32), transparent 28rem),
@@ -499,5 +661,34 @@ html.has-motion [data-image-reveal] {
 
   .bezel-core {
     border-radius: calc(1.35rem - 0.32rem);
+  }
+
+  .service-card {
+    border-radius: 1.35rem;
+    padding: 0.32rem;
+  }
+
+  .service-card-inner {
+    border-radius: calc(1.35rem - 0.32rem);
+  }
+
+  .service-card-media,
+  .service-card-media-tall {
+    aspect-ratio: 4 / 3;
+  }
+
+  .service-card-body,
+  .service-card-directory .service-card-body {
+    min-height: 0;
+    padding: 1.2rem;
+  }
+
+  .service-card-title {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .service-card-copy {
+    font-size: 1rem;
+    line-height: 1.68;
   }
 }

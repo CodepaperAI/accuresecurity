@@ -128,9 +128,9 @@ export const physicalServices: Service[] = [
     metaTitle: "Event Security Guards Ontario | Accure Security",
     metaDescription:
       "Event security guards in Ontario for crowd management, VIP security, parking control, perimeter coverage, and emergency coordination.",
-    image: "/images/services/event-security.jpg",
+    image: "/images/portfolio/event-floor-security.jpg",
     imageAlt:
-      "Accure Security event team standing in front of a festival crowd and stage.",
+      "Accure Security officer watching a busy stage and crowd barrier during live event coverage.",
     outcomes: [
       "Keep guests, staff, performers, vendors, and VIP areas protected without disrupting the event atmosphere.",
       "Coordinate crowd flow, parking zones, perimeters, communications, and emergency procedures.",
