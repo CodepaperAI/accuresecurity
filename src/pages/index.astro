@@ -22,6 +22,27 @@ const featuredServices = [
   digitalServices[0],
   digitalServices[1],
 ];
+
+const testimonials = [
+  {
+    quote:
+      "Accure's team made the coverage feel organized from the first briefing. The guards understood the site flow, reported clearly, and kept the property presence visible without disrupting operations.",
+    role: "Commercial property manager",
+    context: "Multi-tenant site coverage",
+  },
+  {
+    quote:
+      "For our active site, we needed more than someone standing at a gate. The patrol notes, access checks, and escalation process gave our supervisors confidence after hours.",
+    role: "Construction site coordinator",
+    context: "After-hours perimeter protection",
+  },
+  {
+    quote:
+      "The front-desk presence was professional and calm. Residents had a clear point of contact, visitors were managed properly, and the reporting helped us stay ahead of recurring issues.",
+    role: "Residential community manager",
+    context: "Concierge and access control",
+  },
+];
 ---
 
 <BaseLayout
@@ -266,6 +287,32 @@ const featuredServices = [
             </a>
           ))}
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial-band py-16 md:py-24">
+    <div class="section-shell">
+      <div class="grid gap-8 border-b border-white/12 pb-10 text-[#fffdf8] lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+        <div>
+          <p class="font-utility text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#f0c4c6]">Testimonials</p>
+          <h2 class="headline section-title mt-5 text-[#fffdf8]" data-motion-text="words">What clients value after coverage starts.</h2>
+        </div>
+        <p class="max-w-3xl text-[1.02rem] font-semibold leading-8 text-[#fffdf8]" data-reveal="fade-up">
+          Buyers come for security coverage, but they stay with teams that communicate clearly, show up prepared, and make site activity easier to understand.
+        </p>
+      </div>
+      <div class="testimonial-grid mt-8" data-reveal-group>
+        {testimonials.map((testimonial, index) => (
+          <article class:list={["testimonial-card", index === 0 && "testimonial-card-feature"]} data-reveal-item>
+            <span class="testimonial-mark">"</span>
+            <p class="testimonial-quote">{testimonial.quote}</p>
+            <div class="testimonial-meta">
+              <p>{testimonial.role}</p>
+              <span>{testimonial.context}</span>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
