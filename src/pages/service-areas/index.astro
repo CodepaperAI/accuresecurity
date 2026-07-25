@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MediaHero from "@/components/MediaHero.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import { serviceAreas } from "@/data/serviceAreas";
+import { organizationSchema, breadcrumbSchema } from "@/data/schema";
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Service Areas", url: "/service-areas/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Security Service Areas Ontario | Accure Security"
+  description="Accure Security regional service area pages for GTA, Kitchener-Waterloo-Cambridge, and Guelph security guard services in Ontario, Canada."
+  canonical="/service-areas/"
+  image="/images/services/campus-security.jpg"
+  schema={schema}
+>
+  <MediaHero
+    eyebrow="Regional coverage"
+    title="Security coverage across GTA and KWC-Guelph."
+    text="These pages support local SEO for regional service coverage while keeping branch-address pages separate and accurate."
+    image="/images/services/campus-security.jpg"
+    alt="Accure Security officers walking together on an Ontario campus patrol route."
+    actions={[{ href: "/contact/", label: "Request regional coverage" }]}
+  />
+
+  <section class="section-shell py-14 md:py-20">
+    <div class="grid gap-5 lg:grid-cols-2" data-reveal-group>
+      {serviceAreas.map((area) => (
+        <a href={`/service-areas/${area.slug}/`} class="bezel group" data-reveal-item>
+          <article class="bezel-core p-7">
+            <p class="font-utility text-xs font-semibold uppercase tracking-[0.17em] text-[var(--accure-red-dark)]">{area.label}</p>
+            <h2 class="mt-4 font-display card-title font-bold">{area.name}</h2>
+            <p class="mt-5 font-semibold leading-7 text-[var(--ink)]">{area.intro}</p>
+            <div class="mt-7 flex flex-wrap gap-2">
+              {area.nearby.slice(0, 8).map((nearby: string) => (
+                <span class="rounded-[0.65rem] bg-[rgba(179,31,37,0.08)] px-3 py-1 text-sm font-semibold text-[var(--ink)]">{nearby}</span>
+              ))}
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <QuoteBand />
+</BaseLayout>

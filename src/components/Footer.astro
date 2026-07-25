@@ -2,6 +2,7 @@
 import { site } from "@/data/site";
 import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
 import { locations } from "@/data/locations";
+import { serviceAreas } from "@/data/serviceAreas";
 ---
 
 <footer class="dark-panel border-t border-black/10 text-[#fffdf8]">
@@ -45,6 +46,11 @@ import { locations } from "@/data/locations";
           <div class="mt-4 grid gap-3">
             {locations.map((location) => (
               <a href={`/locations/${location.slug}/`} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{location.city}</a>
+            ))}
+          </div>
+          <div class="mt-5 grid gap-3 border-t border-white/10 pt-5">
+            {serviceAreas.map((area) => (
+              <a href={`/service-areas/${area.slug}/`} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{area.shortName}</a>
             ))}
           </div>
         </div>

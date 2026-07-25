@@ -2,6 +2,7 @@ import { site } from "./site";
 import type { Service } from "./services";
 import { serviceUrl } from "./services";
 import type { Location } from "./locations";
+import type { ServiceArea } from "./serviceAreas";
 
 export function organizationSchema() {
   return {
@@ -11,10 +12,20 @@ export function organizationSchema() {
     url: site.url,
     logo: new URL(site.logo, site.url).toString(),
     description: site.description,
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: "Ontario",
-    },
+    areaServed: [
+      {
+        "@type": "AdministrativeArea",
+        name: "Ontario, Canada",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Greater Toronto Area",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Kitchener-Waterloo-Cambridge and Guelph",
+      },
+    ],
   };
 }
 
@@ -57,6 +68,28 @@ export function serviceSchema(service: Service) {
     },
     description: service.summary,
     url: new URL(serviceUrl(service), site.url).toString(),
+  };
+}
+
+export function serviceAreaSchema(area: ServiceArea) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${site.legalName} security services in ${area.name}`,
+    serviceType: "Security guard services",
+    provider: {
+      "@type": "Organization",
+      name: site.legalName,
+      url: site.url,
+    },
+    areaServed: area.nearby.map((name) => ({
+      "@type": "City",
+      name,
+      addressRegion: "ON",
+      addressCountry: "CA",
+    })),
+    description: area.intro,
+    url: new URL(`/service-areas/${area.slug}/`, site.url).toString(),
   };
 }
 

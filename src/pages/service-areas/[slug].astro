@@ -1,0 +1,170 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/Button.astro";
+import FAQ from "@/components/FAQ.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import { locations } from "@/data/locations";
+import { serviceAreas } from "@/data/serviceAreas";
+import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
+import { organizationSchema, serviceAreaSchema, faqSchema, breadcrumbSchema } from "@/data/schema";
+
+export function getStaticPaths() {
+  return serviceAreas.map((area) => ({
+    params: { slug: area.slug },
+    props: { area },
+  }));
+}
+
+const { area } = Astro.props;
+const relatedLocations = area.relatedLocationSlugs
+  .map((slug: string) => locations.find((location) => location.slug === slug))
+  .filter((location): location is (typeof locations)[number] => Boolean(location));
+
+const areaFaqs = [
+  {
+    question: `Does Accure Security serve ${area.name}?`,
+    answer: `Yes. Accure Security serves ${area.name}, ${area.region}, with guard coverage, patrol response, event security, construction security, residential concierge, CCTV, remote monitoring, and access control planning.`,
+  },
+  {
+    question: `What areas are included around ${area.shortName}?`,
+    answer: `Nearby service areas include ${area.nearby.join(", ")}. Coverage depends on site type, address, schedule, risk level, and staffing availability.`,
+  },
+  {
+    question: "What information is needed for a regional security quote?",
+    answer:
+      "Share the property address, service type, required hours, expected start date, number of guards or patrol checks, and any known access, crowd, construction, residential, or monitoring requirements.",
+  },
+];
+
+const schema = [
+  organizationSchema(),
+  serviceAreaSchema(area),
+  faqSchema(areaFaqs),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Service Areas", url: "/service-areas/" },
+    { name: area.shortName, url: `/service-areas/${area.slug}/` },
+  ]),
+];
+---
+
+<BaseLayout
+  title={area.metaTitle}
+  description={area.metaDescription}
+  canonical={`/service-areas/${area.slug}/`}
+  image="/images/services/campus-security.jpg"
+  schema={schema}
+>
+  <section class="section-shell pt-28 pb-12 md:pt-36 md:pb-14">
+    <div class="grid gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-end">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">{area.label}</span>
+        <h1 class="headline mt-7 hero-title" data-motion-text="words">
+          Security guards in {area.headline}, {area.region}.
+        </h1>
+      </div>
+      <div data-reveal="fade-up">
+        <p class="copy">{area.intro}</p>
+        <div class="mt-8">
+          <Button href="/contact/" label={`Request ${area.shortName} coverage`} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell pb-10 md:pb-16">
+    <div class="bezel">
+      <div class="bezel-core dark-panel grid gap-8 p-7 md:grid-cols-[0.72fr_1.28fr] md:p-10">
+        <div>
+          <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Coverage area</p>
+          <h2 class="mt-4 font-display card-title font-bold">{area.shortName}</h2>
+        </div>
+        <div>
+          <p class="text-xl font-semibold leading-8 text-[#fffdf8]">{area.summary}</p>
+          <div class="mt-8 flex flex-wrap gap-2">
+            {area.nearby.map((nearby: string) => (
+              <span class="rounded-[0.65rem] bg-white/10 px-3 py-1 text-sm font-semibold text-[#fffdf8]">{nearby}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell py-12 md:py-16">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">Regional priorities</span>
+        <h2 class="headline mt-6 section-title" data-motion-text="words">
+          Common security needs in this service area.
+        </h2>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2" data-reveal-group>
+        {area.priorities.map((priority: string) => (
+          <div class="bezel" data-reveal-item>
+            <div class="bezel-core p-6">
+              <p class="font-semibold text-lg">{priority}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-panel py-16 text-[#fffdf8] md:py-24">
+    <div class="section-shell">
+      <div class="mb-12 max-w-4xl">
+        <span class="eyebrow border-white/20 bg-white/12 text-[#fffdf8]" data-reveal="fade-up">Services in {area.shortName}</span>
+        <h2 class="headline mt-6 section-title text-[#fffdf8]" data-motion-text="words">
+          Physical and digital coverage available across the region.
+        </h2>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+        {[...physicalServices, ...digitalServices].map((service) => (
+          <a href={serviceUrl(service)} class="rounded-[1.15rem] border border-white/12 bg-white/10 p-5 transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-white/15" data-reveal-item>
+            <p class="card-title font-bold leading-none">{service.shortTitle}</p>
+            <p class="mt-3 text-sm font-semibold text-[#fffdf8]">{service.eyebrow}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {relatedLocations.length > 0 && (
+    <section class="section-shell py-16 md:py-24">
+      <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <div>
+          <span class="eyebrow" data-reveal="fade-up">Branch-backed context</span>
+          <h2 class="headline mt-6 section-title" data-motion-text="words">
+            Related local coverage pages.
+          </h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2" data-reveal-group>
+          {relatedLocations.map((location) => (
+            <a href={`/locations/${location.slug}/`} class="bezel group" data-reveal-item>
+              <article class="bezel-core p-6">
+                <p class="font-utility text-xs font-semibold uppercase tracking-[0.17em] text-[var(--accure-red-dark)]">{location.label}</p>
+                <h3 class="mt-4 font-display card-title font-bold">{location.city}</h3>
+                <p class="mt-4 text-sm font-semibold text-[var(--ink)]">{location.address}</p>
+              </article>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section-shell py-16 md:py-24">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <div>
+        <span class="eyebrow" data-reveal="fade-up">FAQ</span>
+        <h2 class="headline mt-6 section-title" data-motion-text="words">
+          Regional coverage questions.
+        </h2>
+      </div>
+      <FAQ items={areaFaqs} />
+    </div>
+  </section>
+
+  <QuoteBand />
+</BaseLayout>
