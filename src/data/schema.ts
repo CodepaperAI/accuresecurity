@@ -11,7 +11,17 @@ export function organizationSchema() {
     name: site.legalName,
     url: site.url,
     logo: new URL(site.logo, site.url).toString(),
+    telephone: site.contact.phoneDisplay,
     description: site.description,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: site.contact.phoneDisplay,
+        contactType: "customer service",
+        areaServed: "CA",
+        availableLanguage: ["English"],
+      },
+    ],
     areaServed: [
       {
         "@type": "AdministrativeArea",
@@ -100,6 +110,7 @@ export function localBusinessSchema(location: Location) {
     name: `${site.legalName} - ${location.label}`,
     url: new URL(`/locations/${location.slug}/`, site.url).toString(),
     image: new URL(site.logo, site.url).toString(),
+    telephone: site.contact.phoneDisplay,
     address: {
       "@type": "PostalAddress",
       streetAddress: location.address,

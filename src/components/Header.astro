@@ -1,7 +1,7 @@
 ---
 import { physicalServices, serviceUrl } from "@/data/services";
 import { site } from "@/data/site";
-import Button from "./Button.astro";
+import ArrowIcon from "./ArrowIcon.astro";
 
 const navLinks = [
   { href: "/security-services/", label: "Services" },
@@ -10,12 +10,34 @@ const navLinks = [
   { href: "/about/", label: "About" },
 ];
 
+const headerActions = [
+  {
+    href: site.primaryCta.href,
+    label: "Quote",
+    tone: "quote",
+    ariaLabel: site.primaryCta.label,
+  },
+  {
+    href: site.contact.phoneHref,
+    label: "Call",
+    tone: "call",
+    ariaLabel: `Call Accure Security at ${site.contact.phoneDisplay}`,
+  },
+  {
+    href: site.contact.whatsappHref,
+    label: "WhatsApp",
+    tone: "whatsapp",
+    ariaLabel: "Chat with Accure Security on WhatsApp",
+    external: true,
+  },
+];
+
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) => currentPath === href || (href !== "/" && currentPath.startsWith(href));
 ---
 
 <header class="site-header fixed inset-x-0 top-0 z-40 pointer-events-none px-3 py-4 sm:px-6">
-  <nav class="mx-auto flex max-w-[1180px] items-center justify-between gap-3 rounded-full border border-black/15 bg-[#fffaf1]/92 p-2 shadow-[var(--shadow-md)] backdrop-blur-2xl pointer-events-auto">
+  <nav class="mx-auto flex max-w-[1320px] items-center justify-between gap-3 rounded-full border border-black/15 bg-[#fffaf1]/92 p-2 shadow-[var(--shadow-md)] backdrop-blur-2xl pointer-events-auto">
     <a href="/" class="flex items-center gap-3 rounded-full pl-2 pr-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accure-red)]">
       <img src={site.logo} alt="Accure Security logo" class="h-11 w-11 rounded-full object-contain" />
       <span class="hidden leading-none sm:block">
@@ -28,7 +50,7 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
       {navLinks.map((link) => (
         <a
           class:list={[
-            "rounded-full px-4 py-2 text-sm font-bold transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-black/5 hover:text-[var(--ink)]",
+            "rounded-full px-3.5 py-2 text-sm font-bold transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-black/5 hover:text-[var(--ink)]",
             isActive(link.href) ? "bg-[rgba(179,31,37,0.1)] text-[var(--accure-red-dark)]" : "text-[var(--ink)]",
           ]}
           href={link.href}
@@ -37,13 +59,30 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
           {link.label}
         </a>
       ))}
+      <div class="ml-2 flex items-center gap-2 border-l border-black/10 pl-2">
+        {headerActions.map((action) => (
+          <a
+            href={action.href}
+            target={action.external ? "_blank" : undefined}
+            rel={action.external ? "noopener" : undefined}
+            aria-label={action.ariaLabel}
+            class:list={["header-action-pill", `header-action-${action.tone}`]}
+          >
+            <span>{action.label}</span>
+            {action.tone === "quote" && (
+              <span class="header-action-icon">
+                <ArrowIcon class="h-3.5 w-3.5" />
+              </span>
+            )}
+          </a>
+        ))}
+      </div>
     </div>
 
     <div class="hidden items-center gap-2 lg:flex">
       <a href="/contact/" class="rounded-full px-4 py-2 text-sm font-extrabold text-[var(--accure-red-dark)] transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[rgba(189,31,37,0.08)]">
         24/7 request
       </a>
-      <Button href={site.primaryCta.href} label="Quote" class="!py-1 !pl-4" />
     </div>
 
     <button
@@ -85,6 +124,16 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
       <a style="--i:4" class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
         Request a quote
       </a>
+      <div style="--i:5" class="mobile-menu-link mobile-contact-grid translate-y-8 opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+        <a class="mobile-contact-action mobile-contact-call" href={site.contact.phoneHref} aria-label={`Call Accure Security at ${site.contact.phoneDisplay}`}>
+          <span>Call</span>
+          <small>{site.contact.phoneDisplay}</small>
+        </a>
+        <a class="mobile-contact-action mobile-contact-whatsapp" href={site.contact.whatsappHref} target="_blank" rel="noopener" aria-label="Chat with Accure Security on WhatsApp">
+          <span>WhatsApp</span>
+          <small>Chat now</small>
+        </a>
+      </div>
     </div>
 
     <div class="grid gap-8 border-t border-white/10 pt-8">

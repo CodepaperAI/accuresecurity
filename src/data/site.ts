@@ -14,6 +14,12 @@ export const site = {
     label: "Plan coverage",
     href: "/security-services/",
   },
+  contact: {
+    phoneDisplay: "+1 905-399-9333",
+    phoneHref: "tel:+19053999333",
+    whatsappHref:
+      "https://wa.me/19053999333?text=Hi%20Accure%20Security%2C%20I%27d%20like%20to%20request%20a%20security%20quote.",
+  },
   social: [],
 };
 
