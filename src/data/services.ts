@@ -378,7 +378,7 @@ export const digitalServices: Service[] = [
       "Live remote video monitoring in Ontario for homes, offices, construction sites, retail, industrial properties, alarms, and CCTV systems.",
     image: "/images/services/live-remote-monitoring.jpg",
     imageAlt:
-      "Accure Security guard observing a retail environment with visible security presence.",
+      "Accure Security operator monitoring live CCTV feeds from a security control room.",
     outcomes: [
       "Watch high-risk zones in real time rather than relying only on footage after an incident.",
       "Connect cameras, alerts, and response procedures into a more active security program.",
@@ -427,7 +427,7 @@ export const digitalServices: Service[] = [
       "CCTV and camera system installation in Ontario for homes, businesses, commercial properties, outdoor areas, remote viewing, and surveillance support.",
     image: "/images/services/camera-system-installation-cctv.jpg",
     imageAlt:
-      "Accure Security guard monitoring a retail floor supported by camera coverage.",
+      "Accure Security technician installing a CCTV camera at a commercial entry point.",
     outcomes: [
       "Place cameras around entrances, parking areas, hallways, vulnerable zones, and high-traffic areas.",
       "Support deterrence, evidence capture, remote viewing, and ongoing security awareness.",
