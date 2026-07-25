@@ -83,9 +83,44 @@ a {
 }
 
 .site-header {
+  isolation: isolate;
   transition:
     transform 520ms var(--ease-out),
     opacity 520ms var(--ease-out);
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -2rem;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 253, 248, 0.99) 0%,
+      rgba(246, 242, 235, 0.98) 48%,
+      rgba(246, 242, 235, 0.7) 78%,
+      rgba(246, 242, 235, 0) 100%
+    );
+  transition: opacity 360ms var(--ease-out);
+}
+
+.site-header-scrolled::before {
+  opacity: 1;
+}
+
+.site-header-nav {
+  transition:
+    background-color 320ms var(--ease-out),
+    border-color 320ms var(--ease-out),
+    box-shadow 320ms var(--ease-out);
+}
+
+.site-header-scrolled .site-header-nav {
+  border-color: rgba(21, 21, 21, 0.18);
+  background-color: rgba(255, 250, 241, 0.99);
 }
 
 .site-header-hidden {

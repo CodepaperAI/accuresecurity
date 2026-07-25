@@ -37,7 +37,7 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
 ---
 
 <header class="site-header fixed inset-x-0 top-0 z-40 pointer-events-none px-3 py-4 sm:px-6">
-  <nav class="mx-auto flex max-w-[1320px] items-center justify-between gap-3 rounded-full border border-black/15 bg-[#fffaf1]/92 p-2 shadow-[var(--shadow-md)] backdrop-blur-2xl pointer-events-auto">
+  <nav class="site-header-nav mx-auto flex max-w-[1320px] items-center justify-between gap-3 rounded-full border border-black/15 bg-[#fffaf1]/96 p-2 shadow-[var(--shadow-md)] backdrop-blur-2xl pointer-events-auto">
     <a href="/" class="flex items-center gap-3 rounded-full pl-2 pr-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accure-red)]">
       <img src={site.logo} alt="Accure Security logo" class="h-11 w-11 rounded-full object-contain" />
       <span class="hidden leading-none sm:block">
@@ -192,6 +192,7 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
 
     const currentScrollY = window.scrollY;
     const delta = currentScrollY - lastScrollY;
+    header.classList.toggle("site-header-scrolled", currentScrollY > 24);
 
     if (currentScrollY < 90 || delta < -8) {
       header.classList.remove("site-header-hidden");
@@ -208,4 +209,6 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
     scrollTicking = true;
     window.requestAnimationFrame(updateHeaderVisibility);
   }, { passive: true });
+
+  header?.classList.toggle("site-header-scrolled", window.scrollY > 24);
 </script>
