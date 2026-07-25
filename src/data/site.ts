@@ -20,6 +20,9 @@ export const site = {
     whatsappHref:
       "https://wa.me/19053999333?text=Hi%20Accure%20Security%2C%20I%27d%20like%20to%20request%20a%20security%20quote.",
   },
+  careers: {
+    indeedHref: "https://ca.indeed.com/viewjob?jk=46c0e552eb7a4de3",
+  },
   social: [],
 };
 

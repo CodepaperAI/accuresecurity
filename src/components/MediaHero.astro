@@ -3,6 +3,7 @@ type HeroAction = {
   href: string;
   label: string;
   variant?: "primary" | "secondary";
+  external?: boolean;
 };
 
 type Props = {
@@ -49,9 +50,11 @@ const { eyebrow, title, text, image, alt, imagePosition = "54% 50%", actions = [
           {actions.map((action) => (
             <a
               href={action.href}
+              target={action.external ? "_blank" : undefined}
+              rel={action.external ? "noopener" : undefined}
               data-magnetic="0.12"
               class:list={[
-                "media-hero-cta group",
+                "media-hero-cta group w-fit max-w-full",
                 action.variant === "secondary" ? "media-hero-cta-secondary" : "media-hero-cta-primary",
               ]}
             >

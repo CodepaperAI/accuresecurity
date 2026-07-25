@@ -1,0 +1,208 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MediaHero from "@/components/MediaHero.astro";
+import SectionIntro from "@/components/SectionIntro.astro";
+import FAQ from "@/components/FAQ.astro";
+import { site } from "@/data/site";
+import { organizationSchema, breadcrumbSchema, faqSchema } from "@/data/schema";
+
+const benefits = [
+  {
+    title: "Flexible field opportunities",
+    text: "Current postings may include on-call or flexible schedules for licensed guards who want meaningful work across active Ontario sites.",
+  },
+  {
+    title: "Mileage and commuter support",
+    text: "Role-specific benefits listed on Indeed may include mileage reimbursement and commuter benefits for mobile response positions.",
+  },
+  {
+    title: "Employee support",
+    text: "Some active postings include employee assistance program access, on-site parking, and practical support for officers in the field.",
+  },
+  {
+    title: "Clear reporting systems",
+    text: "Accure's work is built around communication, escalation, incident notes, and documented activity, not just standing post.",
+  },
+];
+
+const roleAreas = [
+  {
+    title: "Mobile Security Officer",
+    text: "Respond to alarm calls, mobile patrol requests, and after-hours coverage needs across Cambridge, Kitchener-Waterloo, Guelph, the GTA, and nearby Ontario service areas.",
+  },
+  {
+    title: "Security Guard",
+    text: "Support commercial, residential, construction, healthcare, and public-facing properties with visible presence, access control, patrols, and incident reporting.",
+  },
+  {
+    title: "Event and Venue Security",
+    text: "Help organizers manage crowd flow, entrances, stage areas, restricted zones, and guest safety at cultural, corporate, and high-attendance events.",
+  },
+  {
+    title: "Concierge and Access Control",
+    text: "Represent properties professionally at front desks, lobbies, residential communities, and controlled entry points.",
+  },
+  {
+    title: "Monitoring Support",
+    text: "Work with camera coverage, alerts, patrol notes, and escalation procedures where digital visibility needs an active human response.",
+  },
+  {
+    title: "Supervisory Growth",
+    text: "Experienced guards can grow into stronger site leadership through reliable reporting, calm communication, and consistent field judgement.",
+  },
+];
+
+const expectations = [
+  "Valid Ontario security licence for guard roles.",
+  "Strong communication, punctuality, and professional presentation.",
+  "Comfort writing clear incident reports and using mobile reporting tools.",
+  "Ability to stay calm with clients, visitors, residents, and event guests.",
+  "Driver's licence and area familiarity for mobile patrol or alarm response roles.",
+  "First Aid/CPR or prior mobile patrol, law enforcement, military, or site-security experience can be helpful for some positions.",
+];
+
+const careerFaqs = [
+  {
+    question: "How do I apply for Accure Security jobs?",
+    answer:
+      "Use the Apply on Indeed button on this page. Current openings and role-specific requirements are managed through Indeed.",
+  },
+  {
+    question: "Do I need a security licence?",
+    answer:
+      "Security guard roles generally require a valid Ontario security licence. Mobile or patrol roles may also ask for driver information, area familiarity, and related experience.",
+  },
+  {
+    question: "Where does Accure Security hire?",
+    answer:
+      "Accure Security supports Ontario service areas including Cambridge, Kitchener-Waterloo, Guelph, the GTA, and surrounding commercial, residential, public, event, and construction sites.",
+  },
+];
+
+const schema = [
+  organizationSchema(),
+  faqSchema(careerFaqs),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Careers", url: "/careers/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Careers at Accure Security | Security Jobs in Ontario"
+  description="Apply for Accure Security careers in Ontario, including mobile security officer, security guard, event security, concierge, patrol, monitoring, and field coverage roles."
+  canonical="/careers/"
+  image="/images/services/campus-security.jpg"
+  schema={schema}
+>
+  <MediaHero
+    eyebrow="Careers"
+    title="Build a security career with field-ready responsibility."
+    text="Accure Security hires for practical, professional security work across Ontario. Join a team supporting patrol response, guarding, events, access control, monitoring, and site coverage where communication matters."
+    image="/images/services/campus-security.jpg"
+    alt="Accure Security officers supporting a busy Ontario campus security assignment."
+    imagePosition="48% 50%"
+    actions={[
+      { href: site.careers.indeedHref, label: "Apply on Indeed", external: true },
+      { href: "#role-areas", label: "View role areas", variant: "secondary" },
+    ]}
+  />
+
+  <section class="section-shell py-14 md:py-20">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <SectionIntro
+        eyebrow="Why Accure"
+        title="Work where presence, judgement, and reporting all count."
+        text="The strongest security teams are prepared before the shift starts. Accure looks for people who can represent clients professionally, notice details, communicate clearly, and document what happened."
+      />
+      <div class="grid gap-4 sm:grid-cols-2" data-reveal-group>
+        {benefits.map((item, index) => (
+          <article class="bezel" data-reveal-item>
+            <div class="bezel-core h-full p-6">
+              <p class="font-utility text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accure-red)]">0{index + 1}</p>
+              <h2 class="mt-5 font-display text-2xl font-bold leading-tight">{item.title}</h2>
+              <p class="mt-4 font-semibold leading-7 text-[var(--ink)]">{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="role-areas" class="section-shell py-14 md:py-20">
+    <SectionIntro
+      eyebrow="Role areas"
+      title="Security work across patrol, guarding, events, and monitoring."
+      text="Openings can change by season and client need. Indeed should be treated as the current source for active roles, pay ranges, locations, and application steps."
+    />
+    <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+      {roleAreas.map((role) => (
+        <article class="bezel" data-reveal-item>
+          <div class="bezel-core h-full p-6">
+            <h2 class="font-display text-2xl font-bold leading-tight">{role.title}</h2>
+            <p class="mt-4 font-semibold leading-7 text-[var(--ink)]">{role.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="dark-panel py-16 text-[#fffdf8] md:py-24">
+    <div class="section-shell grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+      <SectionIntro
+        eyebrow="Candidate fit"
+        title="What helps you succeed in Accure field work."
+        text="Security work rewards consistency. The right candidate is alert, respectful, prepared, and able to write down the details that help clients make better decisions."
+        inverted
+      />
+      <div class="grid gap-3" data-reveal-group>
+        {expectations.map((item, index) => (
+          <div class="rounded-[1.1rem] border border-white/12 bg-white/8 p-5" data-reveal-item>
+            <div class="flex gap-4">
+              <span class="font-utility text-sm font-semibold text-[#f0c4c6]">0{index + 1}</span>
+              <p class="font-semibold leading-7 text-[#fffdf8]">{item}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell py-16 md:py-24">
+    <div class="bezel">
+      <div class="bezel-core grid gap-10 p-7 md:p-10 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div>
+          <span class="eyebrow" data-reveal="fade-up">Apply through Indeed</span>
+          <h2 class="headline mt-6 section-title" data-motion-text="words">
+            Ready to apply for current Accure openings?
+          </h2>
+          <p class="copy mt-6">
+            Review the live posting details on Indeed before applying. Each role can include different locations, hours, pay range, qualifications, and benefit details.
+          </p>
+        </div>
+        <a
+          href={site.careers.indeedHref}
+          target="_blank"
+          rel="noopener"
+          class="button button-primary w-fit"
+          data-magnetic="0.12"
+        >
+          <span>Apply on Indeed</span>
+          <span class="button-icon" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell pb-16 md:pb-24">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <SectionIntro
+        eyebrow="Careers FAQ"
+        title="What applicants usually want to know first."
+        text="The hiring details can change by posting, so the Indeed listing is the best source for current requirements."
+      />
+      <FAQ items={careerFaqs} />
+    </div>
+  </section>
+</BaseLayout>
