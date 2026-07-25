@@ -26,7 +26,7 @@ export const portfolioImages = [
   {
     title: "Live event crowd control",
     src: "/images/portfolio/event-floor-security.jpg",
-    alt: "Accure Security officer watching a busy stage and crowd barrier during live event coverage.",
+    alt: "Accure Security officers coordinating guest flow at a busy outdoor event entrance.",
   },
   {
     title: "Outdoor community event coverage",
@@ -36,7 +36,7 @@ export const portfolioImages = [
   {
     title: "Venue entry and floor presence",
     src: "/images/portfolio/event-team-venue.jpg",
-    alt: "Accure Security guards and event staff positioned inside a large venue.",
+    alt: "Accure Security team standing together in front of a large outdoor event crowd.",
   },
   {
     title: "Formal event protection team",
@@ -46,7 +46,7 @@ export const portfolioImages = [
   {
     title: "Stage-side guest safety",
     src: "/images/portfolio/live-stage-coverage.jpg",
-    alt: "Accure Security personnel supporting crowd safety near a live stage.",
+    alt: "Accure Security officers supporting entry control and guest safety at an outdoor event.",
   },
   {
     title: "Night event operations",
@@ -56,7 +56,7 @@ export const portfolioImages = [
   {
     title: "Outdoor operations team",
     src: "/images/portfolio/outdoor-operations-team.jpg",
-    alt: "Accure Security team gathered outdoors for event security operations.",
+    alt: "Accure Security officers walking together on a campus patrol route.",
   },
   {
     title: "Field briefing and team readiness",

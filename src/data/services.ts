@@ -81,7 +81,7 @@ export const physicalServices: Service[] = [
       "Residential and concierge security services in Ontario for condos, communities, access control, visitor management, deliveries, and patrols.",
     image: "/images/services/residential-concierge-security.jpg",
     imageAlt:
-      "Accure Security guard monitoring access at a residential property entrance.",
+      "Accure Security concierge officer greeting a visitor at a residential front desk.",
     outcomes: [
       "Control unauthorized entry while giving residents and guests a professional first point of contact.",
       "Support resident experience through visitor management, delivery handling, and maintenance coordination.",
@@ -130,7 +130,7 @@ export const physicalServices: Service[] = [
       "Event security guards in Ontario for crowd management, VIP security, parking control, perimeter coverage, and emergency coordination.",
     image: "/images/portfolio/event-floor-security.jpg",
     imageAlt:
-      "Accure Security officer watching a busy stage and crowd barrier during live event coverage.",
+      "Accure Security officers coordinating guest entry and event coverage at a busy outdoor venue.",
     outcomes: [
       "Keep guests, staff, performers, vendors, and VIP areas protected without disrupting the event atmosphere.",
       "Coordinate crowd flow, parking zones, perimeters, communications, and emergency procedures.",
@@ -179,7 +179,7 @@ export const physicalServices: Service[] = [
       "Fire watch and contractor watch security guards in Ontario for impaired fire systems, construction sites, commercial properties, and emergency monitoring.",
     image: "/images/services/fire-watch-contractor-watch.jpg",
     imageAlt:
-      "Accure Security guard providing event perimeter coverage at night.",
+      "Accure Security guard monitoring an active construction site and contractor access area.",
     outcomes: [
       "Maintain watch when fire detection, alarm, or sprinkler systems are down or under repair.",
       "Help deter trespassing, theft, and evidence disturbance after fire damage or high-risk incidents.",
@@ -378,7 +378,7 @@ export const digitalServices: Service[] = [
       "Live remote video monitoring in Ontario for homes, offices, construction sites, retail, industrial properties, alarms, and CCTV systems.",
     image: "/images/services/live-remote-monitoring.jpg",
     imageAlt:
-      "Accure Security patrol vehicle and guard supporting remote monitoring coverage.",
+      "Accure Security guard observing a retail environment with visible security presence.",
     outcomes: [
       "Watch high-risk zones in real time rather than relying only on footage after an incident.",
       "Connect cameras, alerts, and response procedures into a more active security program.",
@@ -427,7 +427,7 @@ export const digitalServices: Service[] = [
       "CCTV and camera system installation in Ontario for homes, businesses, commercial properties, outdoor areas, remote viewing, and surveillance support.",
     image: "/images/services/camera-system-installation-cctv.jpg",
     imageAlt:
-      "Accure Security guard observing a retail environment supported by security camera coverage.",
+      "Accure Security guard monitoring a retail floor supported by camera coverage.",
     outcomes: [
       "Place cameras around entrances, parking areas, hallways, vulnerable zones, and high-traffic areas.",
       "Support deterrence, evidence capture, remote viewing, and ongoing security awareness.",
