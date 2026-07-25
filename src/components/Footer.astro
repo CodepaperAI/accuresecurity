@@ -3,6 +3,7 @@ import { site } from "@/data/site";
 import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
 import { locations } from "@/data/locations";
 import { serviceAreas } from "@/data/serviceAreas";
+import Button from "./Button.astro";
 ---
 
 <footer class="dark-panel border-t border-black/10 text-[#fffdf8]">
@@ -19,9 +20,7 @@ import { serviceAreas } from "@/data/serviceAreas";
         <p class="mt-6 max-w-md font-medium text-[#fffdf8]">
           Licensed security guard services, mobile patrol, event security, construction site protection, remote monitoring, CCTV, and access control across Ontario.
         </p>
-        <a href="/contact/" class="mt-8 inline-flex rounded-full bg-white px-5 py-3 font-extrabold text-[var(--ink)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf1]">
-          Request a security quote
-        </a>
+        <Button href="/contact/" label="Request a security quote" class="footer-quote-button mt-8" />
       </div>
 
       <div class="grid gap-8 sm:grid-cols-3">
