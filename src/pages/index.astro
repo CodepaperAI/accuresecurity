@@ -27,18 +27,21 @@ const testimonials = [
   {
     quote:
       "Accure's team made the coverage feel organized from the first briefing. The guards understood the site flow, reported clearly, and kept the property presence visible without disrupting operations.",
+    name: "A. Mehta",
     role: "Commercial property manager",
     context: "Multi-tenant site coverage",
   },
   {
     quote:
       "For our active site, we needed more than someone standing at a gate. The patrol notes, access checks, and escalation process gave our supervisors confidence after hours.",
+    name: "Daniel R.",
     role: "Construction site coordinator",
     context: "After-hours perimeter protection",
   },
   {
     quote:
       "The front-desk presence was professional and calm. Residents had a clear point of contact, visitors were managed properly, and the reporting helped us stay ahead of recurring issues.",
+    name: "M. Thompson",
     role: "Residential community manager",
     context: "Concierge and access control",
   },
@@ -287,8 +290,9 @@ const testimonials = [
             <span class="testimonial-mark">"</span>
             <p class="testimonial-quote">{testimonial.quote}</p>
             <div class="testimonial-meta">
-              <p>{testimonial.role}</p>
-              <span>{testimonial.context}</span>
+              <p>{testimonial.name}</p>
+              <span class="testimonial-role">{testimonial.role}</span>
+              <span class="testimonial-context">{testimonial.context}</span>
             </div>
           </article>
         ))}

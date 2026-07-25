@@ -876,13 +876,24 @@ select {
 
 .testimonial-meta p {
   color: #fffdf8;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 800;
 }
 
 .testimonial-meta span {
   display: block;
-  margin-top: 0.45rem;
+}
+
+.testimonial-role {
+  margin-top: 0.32rem;
+  color: rgba(255,253,248,0.82);
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.testimonial-context {
+  margin-top: 0.6rem;
   color: rgba(255,253,248,0.7);
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
   font-size: 0.68rem;
