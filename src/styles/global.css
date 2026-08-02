@@ -234,16 +234,16 @@ a {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.32) inset, 0 10px 24px -12px rgba(238, 42, 123, 0.7);
 }
 
-.header-action-indeed {
+.header-action-linkedin {
   color: #ffffff;
-  background: #003a9b;
+  background: #0a66c2;
   border-color: transparent;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24) inset, 0 6px 18px -12px rgba(0, 58, 155, 0.6);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24) inset, 0 6px 18px -12px rgba(10, 102, 194, 0.6);
 }
 
-.header-action-indeed:hover {
-  background: #002b74;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24) inset, 0 10px 24px -12px rgba(0, 58, 155, 0.7);
+.header-action-linkedin:hover {
+  background: #084d94;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24) inset, 0 10px 24px -12px rgba(10, 102, 194, 0.7);
 }
 
 .header-request-link {
@@ -292,7 +292,7 @@ a {
 
   .header-action-whatsapp,
   .header-action-instagram,
-  .header-action-indeed {
+  .header-action-linkedin {
     display: none;
   }
 

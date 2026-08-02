@@ -27,6 +27,7 @@ const navLinks: NavLink[] = [
 ];
 
 const instagramLink = site.social.find((s) => s.platform === "Instagram");
+const linkedinLink = site.social.find((s) => s.platform === "LinkedIn");
 
 const headerActions = [
   {
@@ -61,14 +62,18 @@ const headerActions = [
         },
       ]
     : []),
-  {
-    href: site.careers.indeedHref,
-    label: "Indeed",
-    tone: "indeed",
-    ariaLabel: "View Accure Security careers on Indeed",
-    external: true,
-    iconOnly: true,
-  },
+  ...(linkedinLink
+    ? [
+        {
+          href: linkedinLink.href,
+          label: "LinkedIn",
+          tone: "linkedin",
+          ariaLabel: linkedinLink.label,
+          external: true,
+          iconOnly: true,
+        },
+      ]
+    : []),
 ];
 
 const currentPath = Astro.url.pathname;
@@ -148,8 +153,10 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
             )}
-            {action.tone === "indeed" && (
-              <span aria-hidden="true" class="font-utility text-[0.9rem] font-black tracking-tight">in<span class="inline-block h-1.5 w-1.5 rounded-full bg-current align-super"></span></span>
+            {action.tone === "linkedin" && (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" />
+              </svg>
             )}
             {!action.iconOnly && <span>{action.label}</span>}
             {action.tone === "quote" && (
