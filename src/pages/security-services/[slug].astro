@@ -47,7 +47,16 @@ const schema = [
           <Button href="/security-services/" label="All services" variant="secondary" />
         </div>
       </div>
-      <BezelImage src={service.image} alt={service.imageAlt} priority imageClass="aspect-[4/3] min-h-[320px] object-[50%_42%] lg:min-h-[420px]" />
+      <BezelImage
+        src={service.image}
+        alt={service.imageAlt}
+        priority
+        imageClass={
+          service.heroPortrait
+            ? "aspect-[3/4] min-h-[420px] object-contain bg-[#fffdf8] lg:min-h-[560px]"
+            : "aspect-[4/3] min-h-[320px] object-[50%_42%] lg:min-h-[420px]"
+        }
+      />
     </div>
   </section>
 

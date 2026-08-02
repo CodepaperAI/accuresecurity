@@ -16,6 +16,7 @@ export type Service = {
   useCases: string[];
   faqs: { question: string; answer: string }[];
   related?: string[];
+  heroPortrait?: boolean;
 };
 
 export const physicalServices: Service[] = [
@@ -169,6 +170,7 @@ export const physicalServices: Service[] = [
   {
     slug: "fire-watch-contractor-watch",
     category: "Physical Security",
+    heroPortrait: true,
     title: "Fire Watch and Contractor Watch",
     shortTitle: "Fire Watch",
     eyebrow: "Emergency site observation",
