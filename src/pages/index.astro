@@ -55,15 +55,37 @@ const testimonials = [
   schema={schema}
 >
   <section class="relative min-h-[100dvh] overflow-hidden bg-[var(--charcoal)] text-[#fffdf8]" data-parallax-section>
-    <img
-      src="/images/services/control-centre-hero.jpg"
-      alt="Accure Security officers monitoring live CCTV feeds inside the Accure control centre."
-      loading="eager"
-      decoding="async"
-      class="absolute inset-0 h-[108%] w-full object-cover object-[50%_44%] opacity-95"
-      data-parallax-layer
-      data-parallax-speed="0.04"
-    />
+    <div class="hero-carousel absolute inset-0" data-hero-carousel aria-hidden="true">
+      {[
+        {
+          src: "/images/services/control-centre-hero.jpg",
+          alt: "Accure Security officers monitoring live CCTV feeds inside the Accure control centre.",
+        },
+        {
+          src: "/images/services/commercial-industrial-security.jpg",
+          alt: "Accure Security officer on duty inside a commercial building lobby.",
+        },
+        {
+          src: "/images/services/residential-concierge-security.jpg",
+          alt: "Accure Security concierge officer welcoming a resident at a private residential entrance.",
+        },
+        {
+          src: "/images/services/mobile-patrol-alarm-response.jpg",
+          alt: "Accure Security mobile patrol officer standing beside a marked patrol vehicle.",
+        },
+      ].map((slide, index) => (
+        <img
+          src={slide.src}
+          alt={slide.alt}
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding="async"
+          class:list={["hero-slide absolute inset-0 h-[108%] w-full object-cover object-[50%_44%]", index === 0 && "is-active"]}
+          data-hero-slide
+          data-parallax-layer
+          data-parallax-speed="0.04"
+        />
+      ))}
+    </div>
     <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,11,10,0.86)_0%,rgba(12,11,10,0.58)_36%,rgba(12,11,10,0.18)_72%,rgba(12,11,10,0.34)_100%),linear-gradient(180deg,rgba(12,11,10,0.30)_0%,rgba(12,11,10,0.08)_42%,rgba(12,11,10,0.82)_100%)]"></div>
     <div class="section-shell relative z-10 flex min-h-[100dvh] flex-col justify-end pb-10 pt-32 md:pb-12 md:pt-36">
       <div class="max-w-3xl">
@@ -162,7 +184,7 @@ const testimonials = [
         <a href={serviceUrl(service)} class="service-card group" data-reveal-item>
           <article class="service-card-inner">
             <div class="service-card-media">
-              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
             </div>
             <div class="service-card-body">
               <p class="service-card-kicker">/ {service.category}</p>
@@ -344,3 +366,29 @@ const testimonials = [
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 1400ms cubic-bezier(0.32, 0.72, 0, 1);
+    pointer-events: none;
+  }
+  .hero-slide.is-active {
+    opacity: 0.95;
+  }
+</style>
+
+<script>
+  const slides = document.querySelectorAll<HTMLImageElement>("[data-hero-slide]");
+  if (slides.length > 1) {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!prefersReduced.matches) {
+      let current = 0;
+      window.setInterval(() => {
+        slides[current].classList.remove("is-active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("is-active");
+      }, 5500);
+    }
+  }
+</script>

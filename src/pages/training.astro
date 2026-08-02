@@ -1,0 +1,157 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MediaHero from "@/components/MediaHero.astro";
+import SectionIntro from "@/components/SectionIntro.astro";
+import FAQ from "@/components/FAQ.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import { site } from "@/data/site";
+import { organizationSchema, breadcrumbSchema, faqSchema } from "@/data/schema";
+
+const programs = [
+  {
+    title: "Ontario Security Guard Certification Prep",
+    text: "Structured preparation for the Ministry of the Solicitor General security guard licensing exam. Covers legal authorities, use of force, emergency response, communication, and Ontario-specific regulation.",
+  },
+  {
+    title: "First Aid and CPR (Level C, AED)",
+    text: "Workplace-recognized first aid, CPR, and AED training aligned to Canadian Red Cross standards. Required for many event, healthcare, and industrial guard postings.",
+  },
+  {
+    title: "Use of Force and De-escalation",
+    text: "Practical de-escalation, conflict resolution, and lawful use of force training. Focused on early recognition, verbal defusion, and tactical communication before physical response.",
+  },
+  {
+    title: "Fire Watch and Emergency Response",
+    text: "Fire watch protocol training for guards deployed on impaired-alarm sites, construction projects, and hot-work environments. Covers hazard recognition, evacuation coordination, and incident reporting.",
+  },
+  {
+    title: "Access Control and Concierge Standards",
+    text: "Front-desk and gatehouse procedure training for concierge, corporate, and residential postings. Visitor verification, credential validation, package handling, and calm customer-facing communication.",
+  },
+  {
+    title: "CCTV Operator and Control Room Discipline",
+    text: "Operator training for the Accure control centre: monitoring discipline, event logging, escalation timing, radio protocol, and coordinating field response with dispatch.",
+  },
+];
+
+const audiences = [
+  {
+    title: "New guards seeking licensing",
+    text: "If you are pursuing your Ontario security licence, Accure can point you to certified prep resources and let you know when in-house prep sessions are running.",
+  },
+  {
+    title: "Working officers upgrading skills",
+    text: "Existing Accure officers rotate through ongoing refreshers so field practice keeps up with client requirements, insurance expectations, and Ontario regulation.",
+  },
+  {
+    title: "Client property staff",
+    text: "Property managers, event organizers, and facility teams can request site-specific briefings that align internal staff behaviour with the Accure coverage plan.",
+  },
+];
+
+const trainingFaqs = [
+  {
+    question: "Do I need to be an Accure employee to train with you?",
+    answer:
+      "Some sessions are internal for Accure officers only. Others, such as first aid or licensing prep, may be available to prospective candidates. Contact us to check upcoming availability.",
+  },
+  {
+    question: "How long does the Ontario security guard licensing process take?",
+    answer:
+      "The Ministry of the Solicitor General requires a 40-hour basic training course, emergency first aid certification, and a passing score on the licensing exam. Total time varies by learner, typically several weeks end-to-end.",
+  },
+  {
+    question: "Does training count toward continuing employment?",
+    answer:
+      "Ongoing refreshers and specialized modules (fire watch, healthcare, CCTV operator) support scheduling on higher-tier sites. Site-specific training may be a condition of assignment.",
+  },
+  {
+    question: "Do you offer training for our internal facility team?",
+    answer:
+      "Yes. Client-side briefings can be arranged to align internal staff with Accure post orders, escalation paths, and reporting expectations for the property.",
+  },
+];
+
+const schema = [
+  organizationSchema(),
+  faqSchema(trainingFaqs),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Training", url: "/training/" },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Security Training and Certification | Accure Security"
+  description="Accure Security training programs for Ontario security guards, including licensing prep, first aid and CPR, use of force and de-escalation, fire watch, access control, and CCTV operator standards."
+  canonical="/training/"
+  image="/images/services/campus-security.jpg"
+  schema={schema}
+>
+  <MediaHero
+    eyebrow="Training and certification"
+    title="Field-ready officers start with disciplined training."
+    text="Accure Security invests in the people it deploys. From Ontario licensing prep to specialized modules for fire watch, healthcare, and control-room operation, training is the layer that turns hiring into reliable coverage."
+    image="/images/services/campus-security.jpg"
+    alt="Accure Security officer stationed at a professional Ontario lobby post."
+    imagePosition="50% 40%"
+    actions={[
+      { href: "/contact/", label: "Ask about training" },
+      { href: site.careers.indeedHref, label: "View active openings", external: true, variant: "secondary" },
+    ]}
+  />
+
+  <section class="section-shell py-14 md:py-20">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <SectionIntro
+        eyebrow="Programs"
+        title="Core modules that shape every Accure post."
+        text="Training focuses on what actually happens on-site: identifying risk early, communicating clearly, following legal authorities, and documenting activity so clients get real operational visibility."
+      />
+      <div class="grid gap-4 sm:grid-cols-2" data-reveal-group>
+        {programs.map((program, index) => (
+          <article class="bezel" data-reveal-item>
+            <div class="bezel-core h-full p-6">
+              <p class="font-utility text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accure-red)]">0{index + 1}</p>
+              <h2 class="mt-5 font-display text-2xl font-bold leading-tight">{program.title}</h2>
+              <p class="mt-4 font-semibold leading-7 text-[var(--ink)]">{program.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-panel py-16 text-[#fffdf8] md:py-24">
+    <div class="section-shell grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+      <SectionIntro
+        eyebrow="Who trains with Accure"
+        title="Training designed around the officer, the site, and the client."
+        text="Accure structures training around the people who actually rely on it: new candidates entering the industry, working officers upgrading their post readiness, and client teams that need to align with our coverage plan."
+        inverted
+      />
+      <div class="grid gap-3" data-reveal-group>
+        {audiences.map((audience, index) => (
+          <div class="rounded-[1.1rem] border border-white/12 bg-white/8 p-6" data-reveal-item>
+            <p class="font-utility text-xs font-semibold uppercase tracking-[0.18em] text-[#f0c4c6]">0{index + 1}</p>
+            <h2 class="mt-4 font-display text-2xl font-bold leading-tight">{audience.title}</h2>
+            <p class="mt-4 font-semibold leading-7 text-[#fffdf8]">{audience.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell py-16 md:py-24">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      <SectionIntro
+        eyebrow="Training FAQ"
+        title="What candidates and clients ask before signing up."
+      />
+      <FAQ items={trainingFaqs} />
+    </div>
+  </section>
+
+  <QuoteBand />
+</BaseLayout>

@@ -36,7 +36,7 @@ const schema = [
         <a href={serviceUrl(service)} class="service-card service-card-directory group" data-reveal-item>
           <article class="service-card-inner">
             <div class="service-card-media service-card-media-tall">
-              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
             </div>
             <div class="service-card-body">
               <p class="service-card-kicker">{service.eyebrow}</p>

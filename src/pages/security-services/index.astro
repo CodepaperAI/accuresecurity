@@ -2,7 +2,8 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import MediaHero from "@/components/MediaHero.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
-import { physicalServices, serviceUrl } from "@/data/services";
+import SectionIntro from "@/components/SectionIntro.astro";
+import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
 import { organizationSchema, breadcrumbSchema } from "@/data/schema";
 
 const schema = [
@@ -44,7 +45,7 @@ const schema = [
         >
           <article class="service-card-inner">
             <div class="service-card-media service-card-media-tall">
-              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
             </div>
             <div class="service-card-body">
               <p class="service-card-kicker">{service.eyebrow}</p>
@@ -52,6 +53,36 @@ const schema = [
               <p class="service-card-copy">{service.summary}</p>
               <span class="service-card-footer">
                 View service
+                <span aria-hidden="true" class="service-card-icon">&rarr;</span>
+              </span>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-shell pb-14 md:pb-20">
+    <div class="mb-10">
+      <SectionIntro
+        eyebrow="Digital security systems"
+        title="Cameras, monitoring, and access control that support the field team."
+        text="Guarding works best when it is layered with active visibility and controlled entry. Accure plans and installs digital security systems so the same team that patrols your site can also watch it, record it, and control who moves through it."
+      />
+    </div>
+    <div class="grid gap-5 lg:grid-cols-3" data-reveal-group>
+      {digitalServices.map((service) => (
+        <a href={serviceUrl(service)} class="service-card service-card-directory group" data-reveal-item>
+          <article class="service-card-inner">
+            <div class="service-card-media service-card-media-tall">
+              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
+            </div>
+            <div class="service-card-body">
+              <p class="service-card-kicker">{service.eyebrow}</p>
+              <h2 class="service-card-title">{service.title}</h2>
+              <p class="service-card-copy">{service.summary}</p>
+              <span class="service-card-footer">
+                View system
                 <span aria-hidden="true" class="service-card-icon">&rarr;</span>
               </span>
             </div>

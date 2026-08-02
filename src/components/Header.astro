@@ -1,15 +1,32 @@
 ---
-import { physicalServices, serviceUrl } from "@/data/services";
+import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
 import { site } from "@/data/site";
 import ArrowIcon from "./ArrowIcon.astro";
 
-const navLinks = [
-  { href: "/security-services/", label: "Services" },
-  { href: "/security-systems/", label: "Systems" },
+type NavLink = {
+  href: string;
+  label: string;
+  submenu?: { href: string; label: string }[];
+};
+
+const navLinks: NavLink[] = [
+  {
+    href: "/security-services/",
+    label: "Services",
+    submenu: physicalServices.map((s) => ({ href: serviceUrl(s), label: s.shortTitle })),
+  },
+  {
+    href: "/security-systems/",
+    label: "Systems",
+    submenu: digitalServices.map((s) => ({ href: serviceUrl(s), label: s.shortTitle })),
+  },
+  { href: "/training/", label: "Training" },
   { href: "/portfolio/", label: "Portfolio" },
   { href: "/about/", label: "About" },
   { href: "/careers/", label: "Careers" },
 ];
+
+const instagramLink = site.social.find((s) => s.platform === "Instagram");
 
 const headerActions = [
   {
@@ -30,6 +47,27 @@ const headerActions = [
     tone: "whatsapp",
     ariaLabel: "Chat with Accure Security on WhatsApp",
     external: true,
+    iconOnly: false,
+  },
+  ...(instagramLink
+    ? [
+        {
+          href: instagramLink.href,
+          label: "Instagram",
+          tone: "instagram",
+          ariaLabel: instagramLink.label,
+          external: true,
+          iconOnly: true,
+        },
+      ]
+    : []),
+  {
+    href: site.careers.indeedHref,
+    label: "Indeed",
+    tone: "indeed",
+    ariaLabel: "View Accure Security careers on Indeed",
+    external: true,
+    iconOnly: true,
   },
 ];
 
@@ -49,16 +87,50 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
 
     <div class="header-desktop-controls hidden min-w-0 items-center gap-1 lg:flex">
       {navLinks.map((link) => (
-        <a
-          class:list={[
-            "rounded-full px-3.5 py-2 text-sm font-bold transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-black/5 hover:text-[var(--ink)]",
-            isActive(link.href) ? "bg-[rgba(179,31,37,0.1)] text-[var(--accure-red-dark)]" : "text-[var(--ink)]",
-          ]}
-          href={link.href}
-          aria-current={isActive(link.href) ? "page" : undefined}
-        >
-          {link.label}
-        </a>
+        link.submenu ? (
+          <div class="nav-dropdown relative">
+            <a
+              class:list={[
+                "nav-dropdown-trigger inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-bold transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-black/5 hover:text-[var(--ink)]",
+                isActive(link.href) ? "bg-[rgba(179,31,37,0.1)] text-[var(--accure-red-dark)]" : "text-[var(--ink)]",
+              ]}
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {link.label}
+              <svg width="10" height="6" viewBox="0 0 10 6" class="nav-dropdown-caret transition duration-300" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+              </svg>
+            </a>
+            <div class="nav-dropdown-panel absolute left-0 top-full mt-2 min-w-[240px] origin-top scale-95 rounded-2xl border border-black/10 bg-[#fffaf1] p-2 opacity-0 shadow-[var(--shadow-md)] pointer-events-none transition duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]" role="menu">
+              {link.submenu.map((item) => (
+                <a
+                  href={item.href}
+                  role="menuitem"
+                  class:list={[
+                    "block rounded-xl px-3.5 py-2.5 text-sm font-semibold transition duration-200 hover:bg-black/5 hover:text-[var(--accure-red-dark)]",
+                    currentPath === item.href ? "bg-[rgba(179,31,37,0.08)] text-[var(--accure-red-dark)]" : "text-[var(--ink)]",
+                  ]}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            class:list={[
+              "rounded-full px-3.5 py-2 text-sm font-bold transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-black/5 hover:text-[var(--ink)]",
+              isActive(link.href) ? "bg-[rgba(179,31,37,0.1)] text-[var(--accure-red-dark)]" : "text-[var(--ink)]",
+            ]}
+            href={link.href}
+            aria-current={isActive(link.href) ? "page" : undefined}
+          >
+            {link.label}
+          </a>
+        )
       ))}
       <div class="header-actions ml-2 flex items-center gap-2 border-l border-black/10 pl-2">
         {headerActions.map((action) => (
@@ -67,9 +139,19 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
             target={action.external ? "_blank" : undefined}
             rel={action.external ? "noopener" : undefined}
             aria-label={action.ariaLabel}
-            class:list={["header-action-pill", `header-action-${action.tone}`]}
+            class:list={["header-action-pill", `header-action-${action.tone}`, action.iconOnly && "header-action-icon-only"]}
           >
-            <span>{action.label}</span>
+            {action.tone === "instagram" && (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            )}
+            {action.tone === "indeed" && (
+              <span aria-hidden="true" class="font-utility text-[0.9rem] font-black tracking-tight">in<span class="inline-block h-1.5 w-1.5 rounded-full bg-current align-super"></span></span>
+            )}
+            {!action.iconOnly && <span>{action.label}</span>}
             {action.tone === "quote" && (
               <span class="header-action-icon">
                 <ArrowIcon class="h-3.5 w-3.5" />
@@ -122,10 +204,10 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
           {link.label}
         </a>
       ))}
-      <a style="--i:5" class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
+      <a style={`--i:${navLinks.length}`} class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
         Request a quote
       </a>
-      <div style="--i:6" class="mobile-menu-link mobile-contact-grid translate-y-8 opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+      <div style={`--i:${navLinks.length + 1}`} class="mobile-menu-link mobile-contact-grid translate-y-8 opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
         <a class="mobile-contact-action mobile-contact-call" href={site.contact.phoneHref} aria-label={`Call Accure Security at ${site.contact.phoneDisplay}`}>
           <span>Call</span>
           <small>{site.contact.phoneDisplay}</small>
@@ -212,4 +294,44 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
   }, { passive: true });
 
   header?.classList.toggle("site-header-scrolled", window.scrollY > 24);
+
+  // Nav dropdown open/close (hover + focus + click for touch)
+  document.querySelectorAll(".nav-dropdown").forEach((dd) => {
+    const trigger = dd.querySelector(".nav-dropdown-trigger");
+    let hoverTimer;
+    const open = () => {
+      dd.classList.add("is-open");
+      trigger?.setAttribute("aria-expanded", "true");
+    };
+    const close = () => {
+      dd.classList.remove("is-open");
+      trigger?.setAttribute("aria-expanded", "false");
+    };
+    dd.addEventListener("mouseenter", () => { clearTimeout(hoverTimer); open(); });
+    dd.addEventListener("mouseleave", () => { hoverTimer = setTimeout(close, 180); });
+    dd.addEventListener("focusin", open);
+    dd.addEventListener("focusout", (e) => {
+      if (!dd.contains(e.relatedTarget)) close();
+    });
+  });
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".nav-dropdown.is-open").forEach((dd) => {
+      if (!dd.contains(e.target)) {
+        dd.classList.remove("is-open");
+        dd.querySelector(".nav-dropdown-trigger")?.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
 </script>
+
+<style>
+  .nav-dropdown-panel { transform-origin: top; }
+  .nav-dropdown.is-open .nav-dropdown-panel {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+  .nav-dropdown.is-open .nav-dropdown-caret {
+    transform: rotate(180deg);
+  }
+</style>

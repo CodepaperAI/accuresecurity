@@ -54,8 +54,9 @@ const schema = [
         imageClass={
           service.heroPortrait
             ? "aspect-[3/4] min-h-[420px] object-contain bg-[#fffdf8] lg:min-h-[560px]"
-            : "aspect-[4/3] min-h-[320px] object-[50%_42%] lg:min-h-[420px]"
+            : "aspect-[4/3] min-h-[320px] lg:min-h-[420px]"
         }
+        imageStyle={service.heroPortrait ? undefined : `object-position: ${service.imageFocus ?? "50% 42%"}`}
       />
     </div>
   </section>

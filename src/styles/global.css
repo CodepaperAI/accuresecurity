@@ -207,14 +207,43 @@ a {
 
 .header-action-whatsapp {
   border-color: rgba(17, 139, 80, 0.2);
-  background: rgba(235, 255, 242, 0.78);
-  color: #0b5f37;
-  box-shadow: 0 1px 0 rgba(255, 253, 248, 0.88) inset;
+  background: #25d366;
+  color: #ffffff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.32) inset, 0 6px 18px -12px rgba(37, 211, 102, 0.6);
 }
 
 .header-action-whatsapp:hover {
-  border-color: rgba(17, 139, 80, 0.36);
-  background: rgba(37, 211, 102, 0.18);
+  background: #1ebe5b;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.32) inset, 0 10px 24px -12px rgba(37, 211, 102, 0.7);
+}
+
+.header-action-icon-only {
+  padding: 0.5rem 0.68rem;
+  min-width: 2.5rem;
+}
+
+.header-action-instagram {
+  color: #ffffff;
+  background: linear-gradient(135deg, #f9ce34 0%, #ee2a7b 45%, #6228d7 100%);
+  border-color: transparent;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.32) inset, 0 6px 18px -12px rgba(238, 42, 123, 0.6);
+}
+
+.header-action-instagram:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.32) inset, 0 10px 24px -12px rgba(238, 42, 123, 0.7);
+}
+
+.header-action-indeed {
+  color: #ffffff;
+  background: #003a9b;
+  border-color: transparent;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24) inset, 0 6px 18px -12px rgba(0, 58, 155, 0.6);
+}
+
+.header-action-indeed:hover {
+  background: #002b74;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24) inset, 0 10px 24px -12px rgba(0, 58, 155, 0.7);
 }
 
 .header-request-link {
@@ -261,7 +290,9 @@ a {
     max-width: calc(100vw - 1.5rem);
   }
 
-  .header-action-whatsapp {
+  .header-action-whatsapp,
+  .header-action-instagram,
+  .header-action-indeed {
     display: none;
   }
 

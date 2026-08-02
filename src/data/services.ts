@@ -17,12 +17,14 @@ export type Service = {
   faqs: { question: string; answer: string }[];
   related?: string[];
   heroPortrait?: boolean;
+  imageFocus?: string;
 };
 
 export const physicalServices: Service[] = [
   {
     slug: "commercial-industrial-security",
     category: "Physical Security",
+    imageFocus: "50% 22%",
     title: "Commercial and Industrial Security",
     shortTitle: "Commercial Security",
     eyebrow: "Asset and personnel protection",
@@ -72,6 +74,7 @@ export const physicalServices: Service[] = [
   {
     slug: "residential-concierge-security",
     category: "Physical Security",
+    imageFocus: "50% 28%",
     title: "Residential and Concierge Security",
     shortTitle: "Residential Security",
     eyebrow: "Safe communities with polished service",
@@ -121,6 +124,7 @@ export const physicalServices: Service[] = [
   {
     slug: "event-security",
     category: "Physical Security",
+    imageFocus: "50% 30%",
     title: "Live Event Security",
     shortTitle: "Event Security",
     eyebrow: "Crowd control and guest safety",
@@ -220,6 +224,7 @@ export const physicalServices: Service[] = [
   {
     slug: "healthcare-security",
     category: "Physical Security",
+    imageFocus: "50% 32%",
     title: "Healthcare Security",
     shortTitle: "Healthcare Security",
     eyebrow: "Safety for care environments",
@@ -269,6 +274,7 @@ export const physicalServices: Service[] = [
   {
     slug: "mobile-patrol-alarm-response",
     category: "Physical Security",
+    imageFocus: "50% 28%",
     title: "Mobile Patrol and Alarm Response",
     shortTitle: "Mobile Patrol",
     eyebrow: "Visible deterrence with fast checks",
@@ -367,6 +373,7 @@ export const physicalServices: Service[] = [
   {
     slug: "parking-enforcement",
     category: "Physical Security",
+    imageFocus: "50% 30%",
     title: "Parking Enforcement",
     shortTitle: "Parking Enforcement",
     eyebrow: "Private property parking control",

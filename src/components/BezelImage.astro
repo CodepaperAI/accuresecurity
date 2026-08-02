@@ -4,10 +4,11 @@ type Props = {
   alt: string;
   class?: string;
   imageClass?: string;
+  imageStyle?: string;
   priority?: boolean;
 };
 
-const { src, alt, class: className = "", imageClass = "", priority = false } = Astro.props as Props;
+const { src, alt, class: className = "", imageClass = "", imageStyle, priority = false } = Astro.props as Props;
 ---
 
 <figure class:list={["bezel", className]} data-image-reveal data-parallax-section>
@@ -16,6 +17,7 @@ const { src, alt, class: className = "", imageClass = "", priority = false } = A
       src={src}
       alt={alt}
       class:list={["h-full min-h-[420px] w-full object-cover", imageClass]}
+      style={imageStyle}
       data-parallax-image
       loading={priority ? "eager" : "lazy"}
       decoding="async"
