@@ -24,6 +24,7 @@ const {
 const canonicalUrl = new URL(canonical, site.url).toString();
 const ogImage = new URL(image, site.url).toString();
 const schemaItems = Array.isArray(schema) ? schema : [schema];
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <!doctype html>
@@ -46,6 +47,17 @@ const schemaItems = Array.isArray(schema) ? schema : [schema];
     {schemaItems.map((item) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
     ))}
+    {gaId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline set:html={`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${gaId}', { anonymize_ip: true });
+        `}></script>
+      </>
+    )}
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
