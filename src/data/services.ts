@@ -362,6 +362,60 @@ export const physicalServices: Service[] = [
     ],
     related: ["mobile-patrol-alarm-response", "fire-watch-contractor-watch", "live-remote-monitoring"],
   },
+  {
+    slug: "parking-enforcement",
+    category: "Physical Security",
+    title: "Parking Enforcement",
+    shortTitle: "Parking Enforcement",
+    eyebrow: "Private property parking control",
+    summary:
+      "Parking enforcement officers for condominiums, commercial plazas, office buildings, industrial parks, and residential properties that need consistent monitoring, ticketing, tow coordination, and photo-documented reporting.",
+    metaTitle: "Parking Enforcement Services Ontario | Accure Security",
+    metaDescription:
+      "Parking enforcement services in Ontario for condominiums, plazas, offices, industrial parks, and residential properties. Ticketing, tow coordination, patrols, and photo documentation.",
+    image: "/images/services/parking-enforcement.jpg",
+    imageAlt:
+      "Accure Security parking enforcement officer issuing a violation notice on a private parking lot.",
+    outcomes: [
+      "Keep authorized spaces available for residents, tenants, staff, and visitors.",
+      "Deter unauthorized parking, overnight storage, and repeated violations through consistent, documented enforcement.",
+      "Support property managers with photo evidence, tow coordination, and clear escalation procedures.",
+    ],
+    included: [
+      "Scheduled and randomized lot patrols",
+      "Parking violation notice issuance",
+      "Photo and time-stamped documentation",
+      "Tow company coordination",
+      "Signage review and recommendations",
+      "Incident and shift reporting",
+    ],
+    useCases: [
+      "Condominiums",
+      "Commercial plazas",
+      "Office buildings",
+      "Industrial parks",
+      "Residential complexes",
+      "Private lots and driveways",
+    ],
+    faqs: [
+      {
+        question: "Do you enforce parking on private property only?",
+        answer:
+          "Yes. Parking enforcement is provided for private property. Signage, bylaw authority, and enforcement rules are confirmed with the property owner or manager before coverage begins.",
+      },
+      {
+        question: "Can Accure coordinate tows for repeat violators?",
+        answer:
+          "Yes. Enforcement officers work with the property's designated tow provider (or a recommended one) to remove unauthorized vehicles according to the property's parking policy.",
+      },
+      {
+        question: "Is parking enforcement available overnight?",
+        answer:
+          "Coverage can be scheduled for peak-risk windows, overnight patrols, weekends, or full-time 24/7 monitoring depending on the property's requirements.",
+      },
+    ],
+    related: ["mobile-patrol-alarm-response", "commercial-industrial-security", "residential-concierge-security"],
+  },
 ];
 
 export const digitalServices: Service[] = [

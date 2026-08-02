@@ -8,6 +8,7 @@ const navLinks = [
   { href: "/security-systems/", label: "Systems" },
   { href: "/portfolio/", label: "Portfolio" },
   { href: "/about/", label: "About" },
+  { href: "/careers/", label: "Careers" },
 ];
 
 const headerActions = [
@@ -121,10 +122,10 @@ const isActive = (href: string) => currentPath === href || (href !== "/" && curr
           {link.label}
         </a>
       ))}
-      <a style="--i:4" class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
+      <a style="--i:5" class="mobile-menu-link translate-y-8 rounded-[1.4rem] bg-[var(--accure-red)] px-5 py-4 text-3xl font-display font-bold opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" href="/contact/">
         Request a quote
       </a>
-      <div style="--i:5" class="mobile-menu-link mobile-contact-grid translate-y-8 opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+      <div style="--i:6" class="mobile-menu-link mobile-contact-grid translate-y-8 opacity-0 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
         <a class="mobile-contact-action mobile-contact-call" href={site.contact.phoneHref} aria-label={`Call Accure Security at ${site.contact.phoneDisplay}`}>
           <span>Call</span>
           <small>{site.contact.phoneDisplay}</small>
