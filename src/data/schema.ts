@@ -36,6 +36,7 @@ export function organizationSchema() {
         name: "Kitchener-Waterloo-Cambridge and Guelph",
       },
     ],
+    sameAs: site.social.map((entry) => entry.href),
   };
 }
 

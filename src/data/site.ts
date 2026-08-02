@@ -23,7 +23,10 @@ export const site = {
   careers: {
     indeedHref: "https://ca.indeed.com/viewjob?jk=46c0e552eb7a4de3",
   },
-  social: [],
+  social: [
+    { platform: "Instagram", href: "https://www.instagram.com/accuresecurity", label: "Follow Accure Security on Instagram" },
+    { platform: "LinkedIn", href: "https://www.linkedin.com/company/accure-security/", label: "Follow Accure Security on LinkedIn" },
+  ],
 };
 
 export const serviceAreas = [
