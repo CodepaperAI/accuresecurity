@@ -350,6 +350,22 @@ a {
   font-weight: 700;
 }
 
+.mobile-social-pill {
+  transition: transform 220ms var(--ease-out), filter 220ms var(--ease-out);
+}
+
+.mobile-social-pill:active {
+  transform: scale(0.98);
+}
+
+.mobile-social-instagram {
+  background: linear-gradient(135deg, #f9ce34 0%, #ee2a7b 45%, #6228d7 100%);
+}
+
+.mobile-social-linkedin {
+  background: #0a66c2;
+}
+
 .mobile-contact-call {
   background: rgba(179, 31, 37, 0.22);
 }
@@ -1213,8 +1229,27 @@ html.has-motion [data-image-reveal] {
   will-change: transform;
 }
 
+.header-marquee {
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+.header-marquee-track {
+  animation: header-marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.header-marquee:hover .header-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes header-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .logo-marquee {
+  .logo-marquee,
+  .header-marquee-track {
     animation: none !important;
     transform: none !important;
   }
