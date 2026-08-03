@@ -183,8 +183,8 @@ const testimonials = [
       {featuredServices.map((service) => (
         <a href={serviceUrl(service)} class="service-card group" data-reveal-item>
           <article class="service-card-inner">
-            <div class="service-card-media">
-              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
+            <div class:list={["service-card-media", service.heroPortrait && "service-card-media-poster"]}>
+              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={!service.heroPortrait && service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
             </div>
             <div class="service-card-body">
               <p class="service-card-kicker">/ {service.category}</p>

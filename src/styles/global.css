@@ -690,6 +690,15 @@ select {
     filter 760ms var(--ease-out);
 }
 
+.service-card-media-poster {
+  background: #fffdf8;
+}
+
+.service-card-media-poster img {
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+
 .service-card:hover .service-card-media img {
   transform: scale(1.035);
   filter: saturate(1.1) contrast(1.04) brightness(1.02);

@@ -44,8 +44,8 @@ const schema = [
           data-reveal-item
         >
           <article class="service-card-inner">
-            <div class="service-card-media service-card-media-tall">
-              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
+            <div class:list={["service-card-media service-card-media-tall", service.heroPortrait && "service-card-media-poster"]}>
+              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={!service.heroPortrait && service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
             </div>
             <div class="service-card-body">
               <p class="service-card-kicker">{service.eyebrow}</p>
@@ -74,8 +74,8 @@ const schema = [
       {digitalServices.map((service) => (
         <a href={serviceUrl(service)} class="service-card service-card-directory group" data-reveal-item>
           <article class="service-card-inner">
-            <div class="service-card-media service-card-media-tall">
-              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
+            <div class:list={["service-card-media service-card-media-tall", service.heroPortrait && "service-card-media-poster"]}>
+              <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" style={!service.heroPortrait && service.imageFocus ? `object-position: ${service.imageFocus}` : undefined} />
             </div>
             <div class="service-card-body">
               <p class="service-card-kicker">{service.eyebrow}</p>

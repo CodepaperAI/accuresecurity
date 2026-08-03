@@ -138,7 +138,17 @@ const schema = [
           item && (
             <a href={serviceUrl(item)} class="bezel group" data-reveal-item>
               <article class="bezel-core h-full">
-                <img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" class="h-52 w-full object-cover transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.035]" />
+                <img
+                  src={item.image}
+                  alt={item.imageAlt}
+                  loading="lazy"
+                  decoding="async"
+                  class:list={[
+                    "h-52 w-full transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.035]",
+                    item.heroPortrait ? "object-contain bg-[#fffdf8]" : "object-cover",
+                  ]}
+                  style={!item.heroPortrait && item.imageFocus ? `object-position: ${item.imageFocus}` : undefined}
+                />
                 <div class="p-6">
                   <p class="font-utility text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accure-red-dark)]">{item.category}</p>
                   <h3 class="mt-3 font-display card-title font-bold">{item.shortTitle}</h3>
