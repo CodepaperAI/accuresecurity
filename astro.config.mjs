@@ -7,6 +7,9 @@ export default defineConfig({
   site: "https://accuresecurity.ca",
   output: "static",
   adapter: vercel(),
+  security: {
+    checkOrigin: false,
+  },
   devToolbar: {
     enabled: false,
   },
