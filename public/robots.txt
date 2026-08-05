@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://accuresecurity.ca/sitemap-index.xml
+Sitemap: https://accuresecurity.ca/blog-sitemap.xml

@@ -13,7 +13,11 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      customPages: ["https://accuresecurity.ca/blog/"],
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

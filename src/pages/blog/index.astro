@@ -1,0 +1,244 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MediaHero from "@/components/MediaHero.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import SectionIntro from "@/components/SectionIntro.astro";
+import ArrowIcon from "@/components/ArrowIcon.astro";
+import { site } from "@/data/site";
+import { organizationSchema, breadcrumbSchema } from "@/data/schema";
+import {
+  listBlogs,
+  formatBlogDate,
+  estimateReadingTime,
+  blogUrl,
+  coverImage,
+  type UpliftBlogSummary,
+  type BlogPagination,
+} from "@/lib/upliftai";
+
+const pageParam = Number(Astro.url.searchParams.get("page") || "1");
+const currentPage = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
+const PAGE_SIZE = 12;
+
+let blogs: UpliftBlogSummary[] = [];
+let pagination: BlogPagination | undefined;
+let loadError: string | null = null;
+
+try {
+  const result = await listBlogs({ page: currentPage, limit: PAGE_SIZE, status: "PUBLISH" });
+  blogs = result.blogs;
+  pagination = result.pagination;
+} catch (err) {
+  console.error("[blog:index] fetch failed", err);
+  loadError = err instanceof Error ? err.message : "Unable to load blog posts right now.";
+}
+
+const featured = blogs[0];
+const rest = blogs.slice(1);
+
+const schema = [
+  organizationSchema(),
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Field Notes", url: "/blog/" },
+  ]),
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${site.name} Field Notes`,
+    description:
+      "Security operations insights from Accure Security — coverage planning, guarding practice, monitoring, CCTV, and access control across Ontario.",
+    url: `${site.url}/blog/`,
+    publisher: {
+      "@type": "Organization",
+      name: site.legalName,
+      logo: new URL(site.logo, site.url).toString(),
+    },
+    blogPost: blogs.slice(0, 10).map((b) => ({
+      "@type": "BlogPosting",
+      headline: b.title,
+      datePublished: b.publishDate ?? b.createdAt,
+      dateModified: b.updatedAt ?? b.publishDate,
+      author: b.authorName ? { "@type": "Person", name: b.authorName } : undefined,
+      url: new URL(blogUrl(b.slug), site.url).toString(),
+      image: coverImage(b).startsWith("http") ? coverImage(b) : new URL(coverImage(b), site.url).toString(),
+    })),
+  },
+];
+
+const heroImage =
+  featured?.featuredImage?.trim() || "/images/services/campus-security.jpg";
+
+const totalPages = pagination?.totalPages ?? 1;
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+---
+
+<BaseLayout
+  title="Field Notes | Accure Security Blog for Ontario Operators"
+  description="Operational insights on guarding, mobile patrol, event security, monitoring, CCTV, and access control from the Accure Security team across the GTA, KWC-Guelph, and Ontario."
+  canonical="/blog/"
+  image={heroImage}
+  schema={schema}
+>
+  <MediaHero
+    eyebrow="Field Notes"
+    title="Notes from the field. Written for operators."
+    text="Coverage planning, incident response, monitoring, and systems perspective from the Accure Security team across Ontario."
+    image={heroImage}
+    alt="Accure Security officers in the field during active property coverage."
+    imagePosition="50% 46%"
+    actions={[
+      { href: "/contact/", label: "Request a security quote" },
+      { href: "/security-services/", label: "Review services", variant: "secondary" },
+    ]}
+  />
+
+  <section class="section-shell py-14 md:py-20">
+    <SectionIntro
+      eyebrow="Latest field notes"
+      title="Practical writing for property, event, and facility leaders."
+      text="Every post is grounded in what an Accure supervisor, dispatcher, or systems technician sees in the field. Skim for context, then talk to us about your site."
+    />
+
+    {loadError && (
+      <div class="mt-12 rounded-2xl border border-black/10 bg-[rgba(255,250,241,0.85)] p-8 text-center shadow-[var(--shadow-md)]">
+        <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accure-red-dark)]">Blog offline</p>
+        <p class="mt-3 font-display text-xl font-bold text-[var(--ink)]">Field notes are temporarily unavailable.</p>
+        <p class="copy mx-auto mt-4 max-w-xl">
+          The blog feed did not respond in time. Please try again shortly, or contact Accure directly for the same operational insights.
+        </p>
+      </div>
+    )}
+
+    {!loadError && blogs.length === 0 && (
+      <div class="mt-12 rounded-2xl border border-black/10 bg-[rgba(255,250,241,0.85)] p-8 text-center shadow-[var(--shadow-md)]">
+        <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accure-red-dark)]">Publishing soon</p>
+        <p class="mt-3 font-display text-xl font-bold text-[var(--ink)]">The first field notes are on the way.</p>
+        <p class="copy mx-auto mt-4 max-w-xl">
+          Accure is preparing an initial series covering guarding practice, monitoring workflows, and property risk planning. Check back shortly.
+        </p>
+      </div>
+    )}
+
+    {featured && (
+      <a
+        href={blogUrl(featured.slug)}
+        class="service-card group mt-14 block"
+        data-reveal-item
+        aria-label={`Read ${featured.title}`}
+      >
+        <div class="service-card-inner md:grid md:grid-cols-[1.05fr_0.95fr]">
+          <div class="service-card-media service-card-media-tall md:aspect-auto md:min-h-[24rem]">
+            <img
+              src={coverImage(featured)}
+              alt={featured.title}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+          <div class="service-card-body md:min-h-[24rem]">
+            <p class="service-card-kicker">
+              Featured
+              {featured.categories?.[0] && (
+                <span class="mx-2 text-[var(--ink-soft)]">/</span>
+              )}
+              {featured.categories?.[0]}
+            </p>
+            <h2 class="service-card-title">{featured.title}</h2>
+            {featured.excerpt && (
+              <p class="service-card-copy">{featured.excerpt}</p>
+            )}
+            <div class="service-card-footer">
+              <span>{formatBlogDate(featured.publishDate ?? featured.createdAt)}</span>
+              <span aria-hidden="true">·</span>
+              <span>{estimateReadingTime(featured.content ?? featured.excerpt)}</span>
+              <span class="service-card-icon ml-auto">
+                <ArrowIcon class="h-3.5 w-3.5" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    )}
+
+    {rest.length > 0 && (
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+        {rest.map((post) => (
+          <a
+            href={blogUrl(post.slug)}
+            class="service-card group"
+            data-reveal-item
+            aria-label={`Read ${post.title}`}
+          >
+            <div class="service-card-inner">
+              <div class="service-card-media">
+                <img src={coverImage(post)} alt={post.title} loading="lazy" decoding="async" />
+              </div>
+              <div class="service-card-body">
+                {post.categories?.[0] && (
+                  <p class="service-card-kicker">{post.categories[0]}</p>
+                )}
+                <h3 class="service-card-title text-[1.35rem] md:text-[1.5rem]">{post.title}</h3>
+                {post.excerpt && (
+                  <p class="service-card-copy line-clamp-3">{post.excerpt}</p>
+                )}
+                <div class="service-card-footer">
+                  <span>{formatBlogDate(post.publishDate ?? post.createdAt)}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{estimateReadingTime(post.content ?? post.excerpt)}</span>
+                  <span class="service-card-icon ml-auto">
+                    <ArrowIcon class="h-3.5 w-3.5" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+
+    {totalPages > 1 && (
+      <nav
+        class="mt-14 flex items-center justify-between gap-4 border-t border-black/10 pt-8"
+        aria-label="Blog pagination"
+      >
+        {hasPrev ? (
+          <a
+            href={currentPage - 1 === 1 ? "/blog/" : `/blog/?page=${currentPage - 1}`}
+            class="button button-secondary"
+          >
+            <span class="button-icon rotate-180"><ArrowIcon /></span>
+            <span>Newer notes</span>
+          </a>
+        ) : (
+          <span></span>
+        )}
+        <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[var(--ink-soft)]">
+          Page {currentPage} of {totalPages}
+        </p>
+        {hasNext ? (
+          <a href={`/blog/?page=${currentPage + 1}`} class="button button-secondary">
+            <span>Older notes</span>
+            <span class="button-icon"><ArrowIcon /></span>
+          </a>
+        ) : (
+          <span></span>
+        )}
+      </nav>
+    )}
+  </section>
+
+  <QuoteBand />
+</BaseLayout>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
