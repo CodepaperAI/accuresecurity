@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://accuresecurity.ca/sitemap-index.xml
-Sitemap: https://accuresecurity.ca/blog-sitemap.xml
+Sitemap: https://www.accuresecurity.com/sitemap-index.xml
+Sitemap: https://www.accuresecurity.com/blog-sitemap.xml

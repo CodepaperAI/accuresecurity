@@ -18,25 +18,25 @@ Open the Vercel project → **Settings** → **Environment Variables** → **Add
 |---|---|---|
 | `RESEND_API_KEY` | `re_...` (from resend.com dashboard → API Keys) | The one Jagat received on 2026-08-03 has been exposed in chat — rotate it in the Resend dashboard and use the fresh key here. |
 | `RESEND_TO_EMAIL` | `info@accuresecurity.com` | Where quote requests land. Change here to redirect leads to another inbox. |
-| `RESEND_FROM_EMAIL` | `noreply@accuresecurity.ca` (once domain is verified) | See "Verify a sender domain" below. Until verified, leave unset — the API route falls back to `onboarding@resend.dev`, which works but shows the Resend brand and lands in spam more often. |
+| `RESEND_FROM_EMAIL` | `noreply@accuresecurity.com` (once domain is verified) | See "Verify a sender domain" below. Until verified, leave unset — the API route falls back to `onboarding@resend.dev`, which works but shows the Resend brand and lands in spam more often. |
 
 After adding: **Deployments → latest deploy → Redeploy** so the fresh env vars are picked up.
 
 ## Verify a sender domain in Resend (one-time)
 
-Sending from your own domain (`noreply@accuresecurity.ca`) is what makes emails reliable and unbranded. Steps:
+Sending from your own domain (`noreply@accuresecurity.com`) is what makes emails reliable and unbranded. Steps:
 
-1. Resend dashboard → **Domains** → **Add Domain** → enter `accuresecurity.ca`.
+1. Resend dashboard → **Domains** → **Add Domain** → enter `accuresecurity.com`.
 2. Resend shows a set of DNS records: 3 for SPF/DKIM, 1 for return-path (MX), and optionally 1 for DMARC.
 3. Log into wherever the domain's DNS is managed (Vercel Domains, Cloudflare, GoDaddy, etc.) and add each record exactly as shown. Resend has one-click copy for each value.
 4. Back in Resend, click **Verify DNS Records**. Verification usually completes within 5–30 minutes.
-5. Once the domain shows green, set `RESEND_FROM_EMAIL=noreply@accuresecurity.ca` in Vercel and redeploy.
+5. Once the domain shows green, set `RESEND_FROM_EMAIL=noreply@accuresecurity.com` in Vercel and redeploy.
 
-Note: the recipient email (`RESEND_TO_EMAIL`) uses `.com`; the site domain is `.ca`. If you want the sender address to match the recipient domain, verify `accuresecurity.com` instead (same steps).
+Note: the recipient email (`RESEND_TO_EMAIL`) and site both use `.com`, so verify `accuresecurity.com` for the sender domain.
 
 ## Testing the live form
 
-1. Go to `https://accuresecurity.ca/contact/`.
+1. Go to `https://www.accuresecurity.com/contact/`.
 2. Fill in every required field with a real email you control.
 3. Submit — you should land on `/contact/thanks/`.
 4. Check `info@accuresecurity.com` — a formatted quote email arrives within seconds.

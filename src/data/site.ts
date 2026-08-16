@@ -1,7 +1,7 @@
 export const site = {
   name: "Accure Security",
   legalName: "Accure Security Services",
-  url: "https://accuresecurity.ca",
+  url: "https://www.accuresecurity.com",
   logo: "/images/brand/accure-logo.png",
   tagline: "Ontario security guard and monitoring services",
   description:

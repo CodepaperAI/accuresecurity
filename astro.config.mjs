@@ -4,7 +4,7 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: "https://accuresecurity.ca",
+  site: "https://www.accuresecurity.com",
   output: "static",
   adapter: vercel(),
   security: {
@@ -15,7 +15,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      customPages: ["https://accuresecurity.ca/blog/"],
+      customPages: ["https://www.accuresecurity.com/blog/"],
     }),
   ],
   vite: {

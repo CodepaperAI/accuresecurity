@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ request }) => {
   const html = `
     <div style="font-family: -apple-system, Segoe UI, Roboto, sans-serif; color: #151515; max-width: 640px; margin: 0 auto;">
       <h2 style="margin: 0 0 16px; color: #b31f25;">New security quote request</h2>
-      <p style="margin: 0 0 24px; color: #4a4a4a;">Submitted via accuresecurity.ca &mdash; ${new Date().toLocaleString("en-CA", { timeZone: "America/Toronto" })} ET</p>
+      <p style="margin: 0 0 24px; color: #4a4a4a;">Submitted via accuresecurity.com &mdash; ${new Date().toLocaleString("en-CA", { timeZone: "America/Toronto" })} ET</p>
       <table style="width: 100%; border-collapse: collapse;">
         ${rows
           .map(
