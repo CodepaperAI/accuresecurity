@@ -21,12 +21,20 @@ const redirectToThanks = () =>
 type TurnstileVerification = {
   success: boolean;
   action?: string;
+  hostname?: string;
   "error-codes"?: string[];
 };
 
 export const POST: APIRoute = async ({ request }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
-  const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
+  const turnstileSecret =
+    import.meta.env.TURNSTILE_SECRET || import.meta.env.TURNSTILE_SECRET_KEY;
+  const turnstileHostnames = new Set(
+    (import.meta.env.TURNSTILE_HOSTNAMES || "")
+      .split(",")
+      .map((hostname: string) => hostname.trim().toLowerCase())
+      .filter(Boolean),
+  );
   const fromEmail = import.meta.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
   const toEmail = import.meta.env.RESEND_TO_EMAIL || "info@accuresecurity.com";
   const smtpUser =
@@ -76,8 +84,11 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response("Please fill out all required fields.", { status: 400 });
   }
 
-  if (turnstileSecret && !turnstileToken) {
-    return new Response("Please complete the spam-protection check and try again.", { status: 400 });
+  if (
+    turnstileSecret &&
+    (!turnstileToken || turnstileToken.length > 2048 || turnstileHostnames.size === 0)
+  ) {
+    return new Response("Please complete the spam-protection check and try again.", { status: 403 });
   }
 
   if (turnstileSecret) {
@@ -95,6 +106,7 @@ export const POST: APIRoute = async ({ request }) => {
         {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          signal: AbortSignal.timeout(10_000),
           body: verificationBody,
         },
       );
@@ -105,7 +117,12 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response("Could not verify the spam-protection check. Please try again.", { status: 502 });
     }
 
-    if (!turnstile.success || turnstile.action !== "quote-form") {
+    if (
+      !turnstile.success ||
+      turnstile.action !== "quote-form" ||
+      !turnstile.hostname ||
+      !turnstileHostnames.has(turnstile.hostname.toLowerCase())
+    ) {
       console.warn("Turnstile rejected quote submission:", turnstile["error-codes"] ?? []);
       return new Response("Spam-protection verification failed. Please refresh and try again.", { status: 403 });
     }
