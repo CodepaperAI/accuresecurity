@@ -11,6 +11,12 @@ const escapeHtml = (input: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
+const redirectToThanks = () =>
+  new Response(null, {
+    status: 303,
+    headers: { Location: "/contact/thanks/" },
+  });
+
 export const POST: APIRoute = async ({ request }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
   const fromEmail = import.meta.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
@@ -38,7 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
   const honeypot = get("company_website");
 
   if (honeypot) {
-    return Response.redirect(new URL("/contact/thanks/", request.url), 303);
+    return redirectToThanks();
   }
 
   if (!name || !email || !service || !site || !message) {
@@ -90,5 +96,5 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response("Could not send the request right now. Please call or try again shortly.", { status: 502 });
   }
 
-  return Response.redirect(new URL("/contact/thanks/", request.url), 303);
+  return redirectToThanks();
 };
