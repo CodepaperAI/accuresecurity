@@ -29,6 +29,8 @@ const schema = [
     { name: "Contact", url: "/contact/" },
   ]),
 ];
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <BaseLayout
@@ -42,7 +44,7 @@ const schema = [
     <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
       <div>
         <span class="eyebrow" data-reveal="fade-up">Request coverage</span>
-        <h1 class="headline mt-7 hero-title" data-motion-text="words">
+        <h1 class="headline contact-title mt-7" data-motion-text="words">
           Send the site details. Accure will shape the coverage.
         </h1>
         <p class="copy mt-7" data-reveal="fade-up">
@@ -102,6 +104,14 @@ const schema = [
               <span class="text-sm font-bold">Coverage details</span>
               <textarea class="min-h-40 rounded-[1rem] border border-black/15 bg-[#fffdf8] px-4 py-3 text-[var(--ink)] outline-none transition placeholder:text-[rgba(21,21,21,0.72)] focus:border-[var(--accure-red)]" name="message" required placeholder="Dates, hours, property type, risk concerns, reporting needs"></textarea>
             </label>
+            {turnstileSiteKey ? (
+              <div
+                class="cf-turnstile"
+                data-sitekey={turnstileSiteKey}
+                data-action="quote-form"
+                data-theme="light"
+              ></div>
+            ) : null}
             <button class="button button-primary w-fit" type="submit">
               <span>Send quote request</span>
               <span class="button-icon">
@@ -128,3 +138,7 @@ const schema = [
     </div>
   </section>
 </BaseLayout>
+
+{turnstileSiteKey && (
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}
