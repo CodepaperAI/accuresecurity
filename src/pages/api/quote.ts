@@ -29,9 +29,15 @@ export const POST: APIRoute = async ({ request }) => {
   const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
   const fromEmail = import.meta.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
   const toEmail = import.meta.env.RESEND_TO_EMAIL || "info@accuresecurity.com";
-  const smtpUser = import.meta.env.SMTP_USER;
-  const smtpPassword = import.meta.env.SMTP_APP_PASSWORD;
-  const smtpToEmail = import.meta.env.SMTP_TO_EMAIL || "info@accuresecurity.com";
+  const smtpUser =
+    import.meta.env.SMTP_USER ||
+    import.meta.env.GMAIL_SMTP_USER ||
+    import.meta.env.GMAIL_FROM_EMAIL;
+  const smtpPassword = import.meta.env.SMTP_APP_PASSWORD || import.meta.env.GMAIL_APP_PASSWORD;
+  const smtpToEmail =
+    import.meta.env.SMTP_TO_EMAIL ||
+    import.meta.env.EMAIL_TO_EMAIL ||
+    "info@accuresecurity.com";
   const smtpConfigured = Boolean(smtpUser && smtpPassword);
 
   if (!smtpConfigured && !apiKey) {
