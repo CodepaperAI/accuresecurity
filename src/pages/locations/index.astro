@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import MediaHero from "@/components/MediaHero.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import { locations } from "@/data/locations";
+import { serviceAreas } from "@/data/serviceAreas";
 import { organizationSchema, breadcrumbSchema } from "@/data/schema";
 
 const schema = [
@@ -16,7 +17,7 @@ const schema = [
 
 <BaseLayout
   title="Ontario Security Guard Locations | Accure Security"
-  description="Accure Security location pages for Cambridge, Mississauga, Vaughan, London, Toronto, and Scarborough security guard services."
+  description="Accure Security branch and regional coverage pages for Cambridge, Mississauga, Vaughan, London, Toronto, Scarborough, the GTA, and KWC-Guelph."
   canonical="/locations/"
   image="/images/services/mobile-patrol-alarm-response.jpg"
   schema={schema}
@@ -24,7 +25,7 @@ const schema = [
   <MediaHero
     eyebrow="Ontario coverage"
     title="Security coverage across Ontario branches."
-    text="These location pages support local SEO and give property owners a clearer path to branch-specific guard, patrol, event, construction, healthcare, CCTV, and access control services."
+    text="Find branch-specific and regional guard, patrol, event, construction, healthcare, CCTV, and access control coverage from one Ontario directory."
     image="/images/services/mobile-patrol-alarm-response.jpg"
     alt="Accure Security mobile patrol vehicle ready for Ontario site response."
     actions={[{ href: "/contact/", label: "Request local coverage" }]}
@@ -44,6 +45,25 @@ const schema = [
                 <span class="rounded-[0.65rem] bg-[rgba(179,31,37,0.08)] px-3 py-1 text-sm font-semibold text-[var(--ink)]">{priority}</span>
               ))}
             </div>
+          </article>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-shell pb-14 md:pb-20">
+    <div class="mb-9 max-w-3xl">
+      <p class="font-utility text-xs font-semibold uppercase tracking-[0.17em] text-[var(--accure-red-dark)]">Regional coverage</p>
+      <h2 class="mt-4 font-display card-title font-bold">Security service areas across Ontario.</h2>
+      <p class="copy mt-5">Use these regional pages for broader GTA and KWC-Guelph coverage. Individual branch pages above remain the primary source for city-specific office details.</p>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-2" data-reveal-group>
+      {serviceAreas.map((area) => (
+        <a href={`/service-areas/${area.slug}/`} class="bezel group" data-reveal-item>
+          <article class="bezel-core p-7">
+            <p class="font-utility text-xs font-semibold uppercase tracking-[0.17em] text-[var(--accure-red-dark)]">{area.label}</p>
+            <h3 class="mt-4 font-display card-title font-bold">{area.name}</h3>
+            <p class="mt-5 font-semibold leading-7 text-[var(--ink)]">{area.intro}</p>
           </article>
         </a>
       ))}

@@ -13,6 +13,12 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  redirects: {
+    "/service-areas/": {
+      status: 301,
+      destination: "/locations/",
+    },
+  },
   integrations: [
     sitemap({
       customPages: ["https://www.accuresecurity.com/blog/"],

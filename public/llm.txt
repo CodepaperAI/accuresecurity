@@ -1,0 +1,4 @@
+# Accure Security AI information
+
+The current AI-readable site guide is available at:
+https://www.accuresecurity.com/llms.txt
