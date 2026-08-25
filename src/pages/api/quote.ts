@@ -33,7 +33,13 @@ export const POST: APIRoute = async ({ request }) => {
     import.meta.env.SMTP_USER ||
     import.meta.env.GMAIL_SMTP_USER ||
     import.meta.env.GMAIL_FROM_EMAIL;
-  const smtpPassword = import.meta.env.SMTP_APP_PASSWORD || import.meta.env.GMAIL_APP_PASSWORD;
+  // Google displays app passwords in four groups. Normalize copied whitespace
+  // so the SMTP client always receives the required 16-character credential.
+  const smtpPassword = (
+    import.meta.env.SMTP_APP_PASSWORD ||
+    import.meta.env.GMAIL_APP_PASSWORD ||
+    ""
+  ).replace(/\s+/g, "");
   const smtpToEmail =
     import.meta.env.SMTP_TO_EMAIL ||
     import.meta.env.EMAIL_TO_EMAIL ||
