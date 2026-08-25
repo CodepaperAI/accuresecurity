@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/service-areas/",
+      "destination": "/locations/",
+      "permanent": true
+    }
+  ]
+}
