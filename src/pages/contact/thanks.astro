@@ -22,7 +22,7 @@ const schema = [
   schema={schema}
 >
   <section class="section-shell pt-32 pb-24 md:pt-40 md:pb-32">
-    <div class="mx-auto max-w-5xl text-center">
+    <div class="mx-auto max-w-6xl text-center">
       <span class="eyebrow" data-reveal="fade-up">Request received</span>
       <h1 class="headline thanks-title mt-7" data-motion-text="words">
         <span class="thanks-title__lead">Thank you!</span>
@@ -44,16 +44,18 @@ const schema = [
 <style>
   .thanks-title {
     margin-inline: auto;
-    max-width: 24ch;
-    font-size: clamp(2.5rem, 3.75vw, 4.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
+    font-size: clamp(2.25rem, 2.75vw, 3.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
   }
 
   .thanks-title__lead,
   .thanks-title__message {
     display: block;
+  }
+
+  .thanks-title__message {
+    white-space: nowrap;
   }
 
   .emergency-copy {
@@ -67,8 +69,13 @@ const schema = [
   @media (max-width: 767px) {
     .thanks-title {
       max-width: 18ch;
-      font-size: clamp(2.25rem, 10vw, 3.15rem);
+      font-size: clamp(2rem, 9vw, 2.75rem);
       line-height: 1.08;
+    }
+
+    .thanks-title__message {
+      white-space: normal;
+      text-wrap: balance;
     }
   }
 </style>
