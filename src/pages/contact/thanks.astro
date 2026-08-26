@@ -22,13 +22,16 @@ const schema = [
   schema={schema}
 >
   <section class="section-shell pt-32 pb-24 md:pt-40 md:pb-32">
-    <div class="mx-auto max-w-2xl text-center">
+    <div class="mx-auto max-w-5xl text-center">
       <span class="eyebrow" data-reveal="fade-up">Request received</span>
-      <h1 class="headline mt-7 hero-title" data-motion-text="words">
-        Thank you! Your quote request has been received — our team will respond shortly.
+      <h1 class="headline thanks-title mt-7" data-motion-text="words">
+        <span class="thanks-title__lead">Thank you!</span>
+        <span class="thanks-title__message">
+          Your quote request has been received, our team will respond shortly.
+        </span>
       </h1>
       <p class="copy emergency-copy mt-7" data-reveal="fade-up">
-        In case of emergency security coverage, call our 24/7 dispatch center at 905-399-9333.
+        In case of an emergency security coverage, call our 24/7 dispatch center at 905-399-9333.
       </p>
       <div class="mt-10 flex flex-wrap justify-center gap-3" data-reveal="fade-up">
         <Button href="/" label="Back to home" />
@@ -39,9 +42,33 @@ const schema = [
 </BaseLayout>
 
 <style>
+  .thanks-title {
+    margin-inline: auto;
+    max-width: 24ch;
+    font-size: clamp(2.5rem, 3.75vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .thanks-title__lead,
+  .thanks-title__message {
+    display: block;
+  }
+
   .emergency-copy {
+    margin-inline: auto;
+    max-width: 58ch;
     font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.6;
+  }
+
+  @media (max-width: 767px) {
+    .thanks-title {
+      max-width: 18ch;
+      font-size: clamp(2.25rem, 10vw, 3.15rem);
+      line-height: 1.08;
+    }
   }
 </style>
