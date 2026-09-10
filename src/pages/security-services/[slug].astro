@@ -5,7 +5,7 @@ import Button from "@/components/Button.astro";
 import FAQ from "@/components/FAQ.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import { physicalServices, getService, serviceUrl } from "@/data/services";
-import { locations } from "@/data/locations";
+import { cityLocations } from "@/data/locations";
 import { organizationSchema, serviceSchema, faqSchema, breadcrumbSchema } from "@/data/schema";
 
 export function getStaticPaths() {
@@ -127,8 +127,8 @@ const schema = [
           <p class="service-area-text">Local coverage pages are available for branch and nearby-area context.</p>
         </div>
         <nav class="service-area-links" aria-label="Related Ontario location pages">
-          {locations.map((location) => (
-            <a href={`/locations/${location.slug}/`} class="service-area-link">
+          {cityLocations.map((location) => (
+            <a href={location.generateServicePages ? `/locations/${location.slug}/${service.slug}/` : `/locations/${location.slug}/`} class="service-area-link">
               <span>{location.city}</span>
               <small>{location.nearby.slice(0, 2).join(" / ")}</small>
             </a>

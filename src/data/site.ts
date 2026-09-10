@@ -5,7 +5,7 @@ export const site = {
   logo: "/images/brand/accure-logo.png",
   tagline: "Ontario security guard and monitoring services",
   description:
-    "Accure Security provides licensed security guards, mobile patrol, event security, construction site protection, healthcare security, remote monitoring, CCTV installation, and access control across Ontario, including the GTA and KWC-Guelph area.",
+    "Accure Security provides licensed security guards, mobile patrol, event security, construction site protection, healthcare security, camera monitoring, CCTV installation, and access control across Ontario, including the GTA and KWC-Guelph area.",
   primaryCta: {
     label: "Request a security quote",
     href: "/contact/",

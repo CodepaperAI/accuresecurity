@@ -1,7 +1,7 @@
 ---
 import { site } from "@/data/site";
 import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
-import { locations } from "@/data/locations";
+import { cityLocations, regionalLocations } from "@/data/locations";
 import { serviceAreas } from "@/data/serviceAreas";
 import Button from "./Button.astro";
 ---
@@ -18,14 +18,14 @@ import Button from "./Button.astro";
           </span>
         </a>
         <p class="mt-6 max-w-md font-medium text-[#fffdf8]">
-          Licensed security guard services, mobile patrol, event security, construction site protection, remote monitoring, CCTV, and access control across Ontario.
+          Licensed security guard services, mobile patrol, event security, construction site protection, camera monitoring, CCTV, and access control across Ontario.
         </p>
         <Button href="/contact/" label="Request a security quote" class="footer-quote-button mt-8" />
       </div>
 
       <div class="grid gap-8 sm:grid-cols-3">
         <div>
-          <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Physical</h2>
+          <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Physical Security</h2>
           <div class="mt-4 grid gap-3">
             {physicalServices.map((service) => (
               <a href={serviceUrl(service)} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{service.shortTitle}</a>
@@ -33,7 +33,7 @@ import Button from "./Button.astro";
           </div>
         </div>
         <div>
-          <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Digital</h2>
+          <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Digital Security</h2>
           <div class="mt-4 grid gap-3">
             {digitalServices.map((service) => (
               <a href={serviceUrl(service)} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{service.shortTitle}</a>
@@ -43,11 +43,14 @@ import Button from "./Button.astro";
         <div>
           <h2 class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Service areas</h2>
           <div class="mt-4 grid gap-3">
-            {locations.map((location) => (
+            {cityLocations.map((location) => (
               <a href={`/locations/${location.slug}/`} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{location.city}</a>
             ))}
           </div>
           <div class="mt-5 grid gap-3 border-t border-white/10 pt-5">
+            {regionalLocations.map((location) => (
+              <a href={`/locations/${location.slug}/`} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{location.city}</a>
+            ))}
             {serviceAreas.map((area) => (
               <a href={`/service-areas/${area.slug}/`} class="text-sm font-semibold text-[#fffdf8] transition hover:text-white">{area.shortName}</a>
             ))}

@@ -24,9 +24,9 @@ export const serviceAreas: ServiceArea[] = [
     label: "Regional service area",
     metaTitle: "Security Guards GTA Ontario | Accure Security",
     metaDescription:
-      "Security guards across the GTA for commercial, residential, event, construction, mobile patrol, CCTV, remote monitoring, and access control coverage.",
+      "Security guards across the GTA for commercial, residential, event, construction, mobile patrol, CCTV, camera monitoring, and access control coverage.",
     intro:
-      "Accure Security supports Greater Toronto Area properties with licensed guards, mobile patrol, event coverage, residential concierge, construction security, CCTV, remote monitoring, and access control planning.",
+      "Accure Security supports Greater Toronto Area properties with licensed guards, mobile patrol, event coverage, residential concierge, construction security, CCTV, camera monitoring, and access control planning.",
     summary:
       "GTA sites often need coverage that can move between dense commercial buildings, residential communities, retail plazas, events, construction zones, and after-hours patrol routes. Accure plans coverage around the property type, access points, schedule, and reporting expectations.",
     priorities: [
@@ -35,7 +35,7 @@ export const serviceAreas: ServiceArea[] = [
       "Event staffing and crowd control",
       "Construction site and contractor watch",
       "Mobile patrol and alarm response",
-      "CCTV, remote monitoring, and access control",
+      "CCTV, camera monitoring, and access control",
     ],
     nearby: [
       "Toronto",
@@ -53,6 +53,9 @@ export const serviceAreas: ServiceArea[] = [
     ],
     relatedLocationSlugs: [
       "toronto-scarborough-security-guards",
+      "toronto-security-guards",
+      "scarborough-security-guards",
+      "brampton-security-guards",
       "mississauga-security-guards",
       "vaughan-security-guards",
     ],
@@ -68,7 +71,7 @@ export const serviceAreas: ServiceArea[] = [
     metaDescription:
       "Security guards for Kitchener, Waterloo, Cambridge, and Guelph properties, including commercial, residential, construction, event, patrol, CCTV, and access control services.",
     intro:
-      "Accure Security serves the Kitchener-Waterloo-Cambridge and Guelph area with guard coverage, mobile patrol, construction site security, event staffing, residential concierge, remote monitoring, CCTV, and access control planning.",
+      "Accure Security serves the Kitchener-Waterloo-Cambridge and Guelph area with guard coverage, mobile patrol, construction site security, event staffing, residential concierge, camera monitoring, CCTV, and access control planning.",
     summary:
       "KWC and Guelph properties can require a different mix of campus security, industrial patrols, construction watch, commercial access control, residential concierge, and event coverage. Accure uses the Cambridge head office as a practical local anchor for planning nearby service areas.",
     priorities: [
@@ -91,7 +94,12 @@ export const serviceAreas: ServiceArea[] = [
       "Fergus",
       "Brantford",
     ],
-    relatedLocationSlugs: ["cambridge-security-guards"],
+    relatedLocationSlugs: [
+      "kitchener-security-guards",
+      "waterloo-security-guards",
+      "cambridge-security-guards",
+      "guelph-security-guards",
+    ],
   },
 ];
 

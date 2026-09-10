@@ -23,7 +23,7 @@ const relatedLocations = area.relatedLocationSlugs
 const areaFaqs = [
   {
     question: `Does Accure Security serve ${area.name}?`,
-    answer: `Yes. Accure Security serves ${area.name}, ${area.region}, with guard coverage, patrol response, event security, construction security, residential concierge, CCTV, remote monitoring, and access control planning.`,
+    answer: `Yes. Accure Security serves ${area.name}, ${area.region}, with guard coverage, patrol response, event security, construction security, residential concierge, CCTV, camera monitoring, and access control planning.`,
   },
   {
     question: `What areas are included around ${area.shortName}?`,
@@ -134,7 +134,7 @@ const schema = [
     <section class="section-shell py-16 md:py-24">
       <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
-          <span class="eyebrow" data-reveal="fade-up">Branch-backed context</span>
+          <span class="eyebrow" data-reveal="fade-up">Individual city coverage</span>
           <h2 class="headline mt-6 section-title" data-motion-text="words">
             Related local coverage pages.
           </h2>
@@ -145,7 +145,7 @@ const schema = [
               <article class="bezel-core p-6">
                 <p class="font-utility text-xs font-semibold uppercase tracking-[0.17em] text-[var(--accure-red-dark)]">{location.label}</p>
                 <h3 class="mt-4 font-display card-title font-bold">{location.city}</h3>
-                <p class="mt-4 text-sm font-semibold text-[var(--ink)]">{location.address}</p>
+                <p class="mt-4 text-sm font-semibold text-[var(--ink)]">{location.address ?? location.marketContext}</p>
               </article>
             </a>
           ))}

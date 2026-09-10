@@ -18,6 +18,10 @@ export default defineConfig({
       status: 301,
       destination: "/locations/",
     },
+    "/security-systems/live-remote-monitoring/": {
+      status: 301,
+      destination: "/security-systems/camera-monitoring/",
+    },
   },
   integrations: [
     sitemap({

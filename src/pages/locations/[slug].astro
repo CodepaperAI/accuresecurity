@@ -1,11 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BezelImage from "@/components/BezelImage.astro";
 import Button from "@/components/Button.astro";
 import FAQ from "@/components/FAQ.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import { locations } from "@/data/locations";
 import { physicalServices, digitalServices, serviceUrl } from "@/data/services";
-import { organizationSchema, localBusinessSchema, faqSchema, breadcrumbSchema } from "@/data/schema";
+import { organizationSchema, localBusinessSchema, locationServiceSchema, faqSchema, breadcrumbSchema } from "@/data/schema";
 
 export function getStaticPaths() {
   return locations.map((location) => ({
@@ -15,10 +16,13 @@ export function getStaticPaths() {
 }
 
 const { location } = Astro.props;
+const relatedLocations = (location.relatedLocationSlugs ?? [])
+  .map((slug: string) => locations.find((item) => item.slug === slug))
+  .filter((item): item is (typeof locations)[number] => Boolean(item));
 const locationFaqs = [
   {
     question: `What security services are available in ${location.city}?`,
-    answer: `Accure Security supports ${location.city} with guard coverage, mobile patrol, event security, construction security, residential concierge, healthcare security, remote monitoring, CCTV installation, and access control planning.`,
+    answer: `Accure Security supports ${location.city} with guard coverage, mobile patrol, event security, construction security, residential concierge, healthcare security, camera monitoring, CCTV installation, and access control planning.`,
   },
   {
     question: `Can Accure support nearby areas around ${location.city}?`,
@@ -33,7 +37,7 @@ const locationFaqs = [
 
 const schema = [
   organizationSchema(),
-  localBusinessSchema(location),
+  location.kind === "branch" ? localBusinessSchema(location) : locationServiceSchema(location),
   faqSchema(locationFaqs),
   breadcrumbSchema([
     { name: "Home", url: "/" },
@@ -47,7 +51,7 @@ const schema = [
   title={location.metaTitle}
   description={location.metaDescription}
   canonical={`/locations/${location.slug}/`}
-  image="/images/services/mobile-patrol-alarm-response.jpg"
+  image={location.image}
   schema={schema}
 >
   <section class="section-shell pt-28 pb-12 md:pt-36 md:pb-14">
@@ -68,14 +72,44 @@ const schema = [
   </section>
 
   <section class="section-shell pb-10 md:pb-16">
+    <BezelImage
+      src={location.image}
+      alt={location.imageAlt}
+      priority
+      imageClass="aspect-[16/7] min-h-[280px] w-full object-cover md:min-h-[420px]"
+      imageStyle="object-position: 50% 45%"
+    />
+  </section>
+
+  {relatedLocations.length > 0 && (
+    <section class="section-shell py-12 md:py-16">
+      <div class="mb-9 max-w-3xl">
+        <span class="eyebrow" data-reveal="fade-up">Individual city coverage</span>
+        <h2 class="headline mt-6 section-title" data-motion-text="words">Choose Toronto or Scarborough.</h2>
+      </div>
+      <div class="grid gap-5 md:grid-cols-2" data-reveal-group>
+        {relatedLocations.map((item) => (
+          <a href={`/locations/${item.slug}/`} class="bezel group" data-reveal-item>
+            <article class="bezel-core h-full p-7">
+              <p class="font-utility text-xs font-semibold uppercase tracking-[0.17em] text-[var(--accure-red-dark)]">{item.label}</p>
+              <h3 class="mt-4 font-display card-title font-bold">{item.city}</h3>
+              <p class="copy mt-4">{item.intro}</p>
+            </article>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="section-shell pb-10 md:pb-16">
     <div class="bezel">
       <div class="bezel-core dark-panel grid gap-8 p-7 md:grid-cols-[0.7fr_1.3fr] md:p-10">
         <div>
-          <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">Branch address</p>
+          <p class="font-utility text-xs font-semibold uppercase tracking-[0.2em] text-[#f1e8db]">{location.kind === "branch" ? "Branch address" : "Coverage area"}</p>
           <h2 class="mt-4 font-display card-title font-bold">{location.city}</h2>
         </div>
         <div>
-          <p class="text-2xl font-semibold">{location.address}</p>
+          <p class="text-xl font-semibold leading-8 text-[#fffdf8]">{location.kind === "branch" ? location.address : location.marketContext}</p>
           {location.landmark && <p class="mt-3 font-medium text-[#fffdf8]">{location.landmark}</p>}
           <div class="mt-8 flex flex-wrap gap-2">
             {location.nearby.map((area: string) => (
@@ -92,7 +126,7 @@ const schema = [
       <div>
         <span class="eyebrow" data-reveal="fade-up">Local priorities</span>
         <h2 class="headline mt-6 section-title" data-motion-text="words">
-          Common security needs around this branch.
+          Common security needs {location.kind === "branch" ? "around this branch" : `in ${location.city}`}.
         </h2>
       </div>
       <div class="grid gap-4 sm:grid-cols-2" data-reveal-group>
@@ -117,7 +151,7 @@ const schema = [
       </div>
       <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
         {[...physicalServices, ...digitalServices].map((service) => (
-          <a href={serviceUrl(service)} class="rounded-[1.15rem] border border-white/12 bg-white/10 p-5 transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-white/15" data-reveal-item>
+          <a href={location.generateServicePages ? `/locations/${location.slug}/${service.slug}/` : serviceUrl(service)} class="rounded-[1.15rem] border border-white/12 bg-white/10 p-5 transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-white/15" data-reveal-item>
             <p class="card-title font-bold leading-none">{service.shortTitle}</p>
             <p class="mt-3 text-sm font-semibold text-[#fffdf8]">{service.eyebrow}</p>
           </a>

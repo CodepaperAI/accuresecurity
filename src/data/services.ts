@@ -319,7 +319,7 @@ export const physicalServices: Service[] = [
           "Yes. Randomized patrol windows can reduce predictability and improve deterrence for after-hours sites.",
       },
     ],
-    related: ["commercial-industrial-security", "construction-site-security", "live-remote-monitoring"],
+    related: ["commercial-industrial-security", "construction-site-security", "camera-monitoring"],
   },
   {
     slug: "construction-site-security",
@@ -368,7 +368,7 @@ export const physicalServices: Service[] = [
           "Yes. A layered plan can include fixed guard coverage during higher-risk windows and mobile patrols for overnight or weekend checks.",
       },
     ],
-    related: ["mobile-patrol-alarm-response", "fire-watch-contractor-watch", "live-remote-monitoring"],
+    related: ["mobile-patrol-alarm-response", "fire-watch-contractor-watch", "camera-monitoring"],
   },
   {
     slug: "parking-enforcement",
@@ -429,16 +429,16 @@ export const physicalServices: Service[] = [
 
 export const digitalServices: Service[] = [
   {
-    slug: "live-remote-monitoring",
+    slug: "camera-monitoring",
     category: "Digital Security",
-    title: "Live Remote Monitoring",
-    shortTitle: "Remote Monitoring",
+    title: "Camera Monitoring",
+    shortTitle: "Camera Monitoring",
     eyebrow: "Real-time observation and intervention",
     summary:
-      "Remote video monitoring for properties that need 24/7 visibility, instant alerts, camera support, and faster awareness without relying only on recorded footage.",
-    metaTitle: "Live Remote Video Monitoring Ontario | Accure Security",
+      "Camera monitoring for properties that need 24/7 visibility, instant alerts, active video review, and faster awareness without relying only on recorded footage.",
+    metaTitle: "Camera Monitoring Services Ontario | Accure Security",
     metaDescription:
-      "Live remote video monitoring in Ontario for homes, offices, construction sites, retail, industrial properties, alarms, and CCTV systems.",
+      "Camera monitoring services in Ontario for homes, offices, construction sites, retail, industrial properties, alarms, and CCTV systems.",
     image: "/images/services/live-remote-monitoring.jpg",
     imageAlt:
       "Accure Security operator monitoring live CCTV feeds from a security control room.",
@@ -465,12 +465,12 @@ export const digitalServices: Service[] = [
     ],
     faqs: [
       {
-        question: "How is live remote monitoring different from recorded CCTV?",
+        question: "How is camera monitoring different from recorded CCTV?",
         answer:
           "Recorded CCTV helps after an incident. Live monitoring adds active observation, alerts, and escalation when suspicious activity is detected.",
       },
       {
-        question: "Can remote monitoring work with existing cameras?",
+        question: "Can camera monitoring work with existing cameras?",
         answer:
           "In many cases, yes. The current camera layout, network, recording system, and alert setup need to be reviewed before integration.",
       },
@@ -524,7 +524,7 @@ export const digitalServices: Service[] = [
           "Yes. Camera placement should be based on blind spots, lighting, access points, recording needs, and how the system will be monitored.",
       },
     ],
-    related: ["live-remote-monitoring", "access-control", "commercial-industrial-security"],
+    related: ["camera-monitoring", "access-control", "commercial-industrial-security"],
   },
   {
     slug: "access-control",
@@ -573,7 +573,7 @@ export const digitalServices: Service[] = [
           "Yes. Modern access systems can use mobile credentials, NFC, Bluetooth, and biometric options depending on hardware, policies, and site requirements.",
       },
     ],
-    related: ["camera-system-installation-cctv", "live-remote-monitoring", "commercial-industrial-security"],
+    related: ["camera-system-installation-cctv", "camera-monitoring", "commercial-industrial-security"],
   },
 ];
 

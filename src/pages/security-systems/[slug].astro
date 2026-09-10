@@ -6,6 +6,7 @@ import FAQ from "@/components/FAQ.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import { digitalServices, getService, serviceUrl } from "@/data/services";
 import { physicalServices } from "@/data/services";
+import { programmaticLocations } from "@/data/locations";
 import { organizationSchema, serviceSchema, faqSchema, breadcrumbSchema } from "@/data/schema";
 
 export function getStaticPaths() {
@@ -90,6 +91,26 @@ const schema = [
             {item}
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="service-area-strip py-10 md:py-12" aria-label={`${service.shortTitle} service areas`}>
+    <div class="section-shell">
+      <div class="service-area-panel" data-reveal="fade-up">
+        <div class="service-area-copy">
+          <p class="font-utility text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-[var(--accure-red-dark)]">City coverage</p>
+          <h2 class="service-area-title">{service.shortTitle} across Ontario cities.</h2>
+          <p class="service-area-text">Choose a city for local property context, nearby coverage areas, and quote details.</p>
+        </div>
+        <nav class="service-area-links" aria-label={`${service.shortTitle} city pages`}>
+          {programmaticLocations.map((location) => (
+            <a href={`/locations/${location.slug}/${service.slug}/`} class="service-area-link">
+              <span>{location.city}</span>
+              <small>{location.nearby.slice(0, 2).join(" / ")}</small>
+            </a>
+          ))}
+        </nav>
       </div>
     </div>
   </section>

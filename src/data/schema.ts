@@ -127,6 +127,36 @@ export function localBusinessSchema(location: Location) {
   };
 }
 
+export function locationServiceSchema(location: Location) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${site.legalName} security services in ${location.city}`,
+    serviceType: "Security services",
+    provider: { "@type": "Organization", name: site.legalName, url: site.url },
+    areaServed: [location.city, ...location.nearby].map((name) => ({
+      "@type": "City", name, addressRegion: "ON", addressCountry: "CA",
+    })),
+    description: location.intro,
+    url: new URL(`/locations/${location.slug}/`, site.url).toString(),
+  };
+}
+
+export function cityServiceSchema(location: Location, service: Service) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${service.title} in ${location.city}`,
+    serviceType: service.title,
+    provider: { "@type": "Organization", name: site.legalName, url: site.url },
+    areaServed: [location.city, ...location.nearby].map((name) => ({
+      "@type": "City", name, addressRegion: "ON", addressCountry: "CA",
+    })),
+    description: `${service.summary} Available for properties in ${location.city}, Ontario.`,
+    url: new URL(`/locations/${location.slug}/${service.slug}/`, site.url).toString(),
+  };
+}
+
 export function faqSchema(items: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",

@@ -19,7 +19,7 @@ Telephone: +1 905-399-9333
 - Security systems: https://www.accuresecurity.com/security-systems/
 - CCTV installation: https://www.accuresecurity.com/security-systems/camera-system-installation-cctv/
 - Access control: https://www.accuresecurity.com/security-systems/access-control/
-- Live remote monitoring: https://www.accuresecurity.com/security-systems/live-remote-monitoring/
+- Camera monitoring: https://www.accuresecurity.com/security-systems/camera-monitoring/
 
 ## Locations and regional coverage
 
