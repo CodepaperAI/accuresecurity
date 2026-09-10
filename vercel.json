@@ -4,6 +4,11 @@
       "source": "/service-areas/",
       "destination": "/locations/",
       "permanent": true
+    },
+    {
+      "source": "/security-systems/live-remote-monitoring/",
+      "destination": "/security-systems/camera-monitoring/",
+      "permanent": true
     }
   ]
 }
